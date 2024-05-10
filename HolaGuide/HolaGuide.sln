@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HolaGuide", "HolaGuide.csproj", "{EEA63F41-481D-4B00-A7BA-F53A1BEDAC68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HolaGuide", "HolaGuide.csproj", "{EEA63F41-481D-4B00-A7BA-F53A1BEDAC68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{87DA2DEA-B9FD-4439-9B82-3B4647BB6503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infrastructure\Infrastructure.csproj", "{87DA2DEA-B9FD-4439-9B82-3B4647BB6503}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{85F6F134-9CE3-412A-AEA4-AE0C845319A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "..\Models\Models.csproj", "{85F6F134-9CE3-412A-AEA4-AE0C845319A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{95CCCC03-4893-400B-A7BA-32CDFCE394E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "..\Services\Services.csproj", "{95CCCC03-4893-400B-A7BA-32CDFCE394E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
