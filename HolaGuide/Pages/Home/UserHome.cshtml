@@ -1,4 +1,4 @@
-@page "{selectedCategory?}"
+@page "{category?}/{filter?}"
 @model HolaGuide.Pages.Home.UserHomeModel
 @{
 }
@@ -13,7 +13,7 @@
                 <ul class="w-100">
                     @foreach (var cat in Model.Categories)
                     {
-                        <li><a asp-page="/Home/UserHome" asp-route-selectedCategory="@cat.Name">@cat.Name</a></li>
+                        <li><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a></li>
                     }
                 </ul>
             </div>
@@ -22,13 +22,29 @@
             <div class="container-fluid bordered" style="background-color: #dddddd; padding: 0">
                 <div class="col-4">
                     <ul class="inline-list w-100">
-                        <li class="">Mới nhất</li>
-                        <li>Gần Tôi</li>
-                        <li>Đã Lưu</li>
+                        <li><a asp-page="/Home/UserHome">Mới nhất</a></li>
+                        <li><a asp-page="/Home/UserHome">Gần Tôi</a></li>
+                        <li><a asp-page="/Home/UserHome">Đã Lưu</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="container-fluid bordered"></div>
+            <div class="container-fluid bordered">
+                <div class="row">
+                    @foreach (var service in Model.Services)
+                    {
+                        <div class="col-md-3 mb-3">
+                            <div class="card h-100">
+                                <img src="" class="card-img-top" style="height: 50%;" alt="Service Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">@service.Name</h5>
+                                    <p class="card-text">@service.Title</p>
+                                    <p class="card-text">Price: @service.Price</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -43,7 +59,6 @@
         font-weight: 400;
     }
     li:hover{
-        color: red;
         background: #f7f7f7;
     }
     .bordered{

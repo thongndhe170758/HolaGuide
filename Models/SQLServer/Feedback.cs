@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class Feedback
+    public partial class Feedback
     {
         public int Id { get; set; }
         public string Content { get; set; } = null!;

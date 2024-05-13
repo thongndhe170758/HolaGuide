@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class UserSubcription
+    public partial class UserSubcription
     {
         public int Id { get; set; }
         public int? UserId { get; set; }

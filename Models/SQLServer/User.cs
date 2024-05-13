@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class User
+    public partial class User
     {
         public User()
         {

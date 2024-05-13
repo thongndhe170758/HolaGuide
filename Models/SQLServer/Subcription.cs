@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class Subcription
+    public partial class Subcription
     {
         public Subcription()
         {

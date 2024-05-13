@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class Location
+    public partial class Location
     {
         public Location()
         {

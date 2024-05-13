@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class Image
+    public partial class Image
     {
         public int Id { get; set; }
         public int? ServiceId { get; set; }

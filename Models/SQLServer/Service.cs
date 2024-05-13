@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models.SQLServer
 {
-    public class Service
+    public partial class Service
     {
         public Service()
         {
@@ -13,7 +13,7 @@ namespace Models.SQLServer
         public int Id { get; set; }
         public int? CategoryId { get; set; }
         public string Name { get; set; } = null!;
-        public double Price { get; set; }
+        public string Price { get; set; } = null!;
         public int? LocationId { get; set; }
         public string? Title { get; set; }
 

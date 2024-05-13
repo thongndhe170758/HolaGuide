@@ -15,6 +15,7 @@ builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
 
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {
