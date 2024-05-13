@@ -1,5 +1,61 @@
-﻿@page
+@page "{selectedCategory?}"
 @model HolaGuide.Pages.Home.UserHomeModel
 @{
-
 }
+
+<div class="w-100 bg-black" style="min-height: 10rem"></div>
+
+<div class="container" style="padding: 1rem 0">
+    <div class="row">
+        <div class="col-3 bordered" style="background-color: white">
+            <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.25rem">Khám Phá</div>
+            <div class="w-100">
+                <ul class="w-100">
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <li><a asp-page="/Home/UserHome" asp-route-selectedCategory="@cat.Name">@cat.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-9 bordered">
+            <div class="container-fluid bordered" style="background-color: #dddddd; padding: 0">
+                <div class="col-4">
+                    <ul class="inline-list w-100">
+                        <li class="">Mới nhất</li>
+                        <li>Gần Tôi</li>
+                        <li>Đã Lưu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container-fluid bordered"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    ul{
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        padding: 0.5rem;
+        font-weight: 400;
+    }
+    li:hover{
+        color: red;
+        background: #f7f7f7;
+    }
+    .bordered{
+        border-radius: 0.25rem;
+    }
+    .inline-list{
+        display: flex;
+        padding: 0;
+        justify-content: center;
+    }
+    .inline-list li{
+        flex: 1;
+        text-align: center;
+    }
+</style>
