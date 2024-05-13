@@ -1,5 +1,7 @@
 using Infrastructure.SQLServer;
 using Microsoft.EntityFrameworkCore;
+using Services.DBRepository.Implements;
+using Services.DBRepository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
+
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {
@@ -58,3 +63,4 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
