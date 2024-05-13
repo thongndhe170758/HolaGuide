@@ -7,18 +7,25 @@
 
 <div class="container" style="padding: 1rem 0">
     <div class="row">
-        <div class="col-3 bordered" style="background-color: white">
-            <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.25rem">Khám Phá</div>
+        <div class="col-2 bordered" style="background-color: white; padding: 0">
+            <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.5rem">Khám Phá</div>
             <div class="w-100">
                 <ul class="w-100">
                     @foreach (var cat in Model.Categories)
                     {
-                        <li><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a></li>
+                        if (cat.Name.Equals(Model.SelectedCategory))
+                        {
+                            <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a></li>
+                        }
+                        else
+                        {
+                            <li class="category"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a></li>
+                        }
                     }
                 </ul>
             </div>
         </div>
-        <div class="col-9 bordered">
+        <div class="col bordered">
             <div class="container-fluid bordered" style="background-color: #dddddd; padding: 0">
                 <div class="col-4">
                     <ul class="inline-list w-100">
@@ -28,13 +35,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="container-fluid bordered">
+            <div class="container-fluid bordered" style="padding: 0">
                 <div class="row">
                     @foreach (var service in Model.Services)
                     {
                         <div class="col-md-3 mb-3">
                             <div class="card h-100">
-                                <img src="" class="card-img-top" style="height: 50%;" alt="Service Image">
+                                <img src="https://th.bing.com/th/id/OIP.s3C0UYqb62MfL0SUiVgfAgHaFj?w=232&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="card-img-top" style="height: 50%;" alt="Service Image">
                                 <div class="card-body">
                                     <h5 class="card-title">@service.Name</h5>
                                     <p class="card-text">@service.Title</p>
@@ -55,11 +62,22 @@
     }
     li{
         list-style-type: none;
-        padding: 0.5rem;
+        padding: 0.5rem 1rem;
         font-weight: 400;
     }
     li:hover{
         background: #f7f7f7;
+        color: red;
+    }
+    .category{
+        color: black;
+    }
+    .category-selected{
+        color: red;
+        background: #f7f7f7;
+    }
+    a:hover{
+        color: red;
     }
     .bordered{
         border-radius: 0.25rem;
