@@ -29,9 +29,9 @@
             <div class="container-fluid bordered" style="background-color: #dddddd; padding: 0">
                 <div class="col-4">
                     <ul class="inline-list w-100">
-                        <li><a asp-page="/Home/UserHome">Mới nhất</a></li>
-                        <li><a asp-page="/Home/UserHome">Gần Tôi</a></li>
-                        <li><a asp-page="/Home/UserHome">Đã Lưu</a></li>
+                        <li><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới Nhất">Mới Nhất</a></li>
+                        <li><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần Tôi">Gần Tôi</a></li>
+                        <li><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã Lưu">Đã Lưu</a></li>
                     </ul>
                 </div>
             </div>
@@ -90,5 +90,6 @@
     .inline-list li{
         flex: 1;
         text-align: center;
+        padding: 1rem;
     }
 </style>

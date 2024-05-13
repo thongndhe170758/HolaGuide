@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models.SQLServer;
 using Services.DBRepository.Interfaces;
@@ -16,6 +16,9 @@ namespace HolaGuide.Pages.Home
         [BindProperty(SupportsGet = true, Name = "category")]
         public string? SelectedCategory { get; set; }
 
+        [BindProperty(SupportsGet = true, Name = "filter")]
+        public string? FilterString { get; set; }
+
         public UserHomeModel(ICategoryRepository categoryRepos, IServiceRepository serviceRepos)
         {
             _categoryRepos = categoryRepos;
@@ -30,10 +33,32 @@ namespace HolaGuide.Pages.Home
                 SelectedCategory = Categories[0].Name;
             }
 
+            if(FilterString == null)
+            {
+                FilterString = "Mới Nhất";
+            }
+
             var category = Categories.Find(c => c.Name.Equals(SelectedCategory));
             if(category != null)
             {
                 Services = _serviceRepos.Gets(s => s.CategoryId == category.Id);
+            }
+
+            switch(FilterString)
+            {
+                case "Mới Nhất":
+                    {
+                        Services = Services.OrderByDescending(s => s.CategoryId).ToList();
+                        break;
+                    }
+                case "Gần Tôi":
+                    {
+                        break;
+                    }
+                case "Đã Lưu":
+                    {
+                        break;
+                    }
             }
         }
     }
