@@ -37,7 +37,7 @@ namespace HolaGuide.Pages.Authentication
             var claims = new List<Claim>
             {
                 new Claim("ID", user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Email", user.Email),
                 new Claim("Role",user.Role.ToString())
             };
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
