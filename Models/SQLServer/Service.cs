@@ -20,6 +20,7 @@ namespace Models.SQLServer
         public int? OwnerId { get; set; }
         public DateTime? CreateDate { get; set; }
         public string? ContactNumber { get; set; }
+        public bool? IsVerified { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Location? Location { get; set; }
