@@ -12,5 +12,7 @@ namespace Services.DBRepository.Interfaces
     {
         public List<Service> Gets(Expression<Func<Service, bool>> predicate);
         public Service? Get(Expression<Func<Service, bool>> predicate);
+        public List<Service> GetSavedServices(int UserID, int categoryID);
+        public Service? GetDetailedService(int serviceID);
     }
 }

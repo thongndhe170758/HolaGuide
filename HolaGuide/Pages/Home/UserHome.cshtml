@@ -1,4 +1,4 @@
-@page "{category?}/{filter?}"
+@page 
 @model HolaGuide.Pages.Home.UserHomeModel
 @{
 }
@@ -7,7 +7,7 @@
 
 <div class="container" style="padding: 1rem 0">
     <div class="row">
-        <div class="col-2 bordered" style="background-color: white; padding: 0">
+        <div class="col-2 bordered shadow" style="background-color: white; padding: 0; height: fit-content">
             <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.5rem">Khám Phá</div>
             <div class="w-100">
                 <ul class="w-100">
@@ -26,31 +26,32 @@
             </div>
         </div>
         <div class="col bordered">
-            <div class="container-fluid bordered" style="background-color: #dddddd; padding: 0">
+            <div class="container-fluid" style="background-color: #dddddd; padding: 0">
                 <div class="col-4">
                     <ul class="inline-list w-100">
-                        <li><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới Nhất">Mới Nhất</a></li>
-                        <li><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần Tôi">Gần Tôi</a></li>
-                        <li><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã Lưu">Đã Lưu</a></li>
+                        <li class="@(Model.FilterString.Equals("Mới Nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới Nhất">Mới Nhất</a></li>
+                        <li class="@(Model.FilterString.Equals("Gần Tôi") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần Tôi">Gần Tôi</a></li>
+                        <li class="@(Model.FilterString.Equals("Đã Lưu") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã Lưu">Đã Lưu</a></li>
                     </ul>
                 </div>
             </div>
             <div class="container-fluid bordered" style="padding: 0">
-                <div class="row">
-                    @foreach (var service in Model.Services)
-                    {
-                        <div class="col-md-3 mb-3">
-                            <div class="card h-100">
-                                <img src="https://th.bing.com/th/id/OIP.s3C0UYqb62MfL0SUiVgfAgHaFj?w=232&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="card-img-top" style="height: 50%;" alt="Service Image">
-                                <div class="card-body">
-                                    <h5 class="card-title">@service.Name</h5>
-                                    <p class="card-text">@service.Title</p>
-                                    <p class="card-text">Price: @service.Price</p>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
+                @if(Model.FilterString.Equals("Mới Nhất"))
+                {
+                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory})
+                }
+                else if (Model.FilterString.Equals("Gần Tôi"))
+                {
+                    @await Component.InvokeAsync("NearByServices", new {categoryName = Model.SelectedCategory})
+                }
+                else if (Model.FilterString.Equals("Đã Lưu"))
+                {
+                    @await Component.InvokeAsync("SavedServices", new {categoryName = Model.SelectedCategory})
+                }
+                else
+                {
+                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory})
+                }
             </div>
         </div>
     </div>
@@ -60,15 +61,6 @@
     ul{
         padding: 0;
     }
-    li{
-        list-style-type: none;
-        padding: 0.5rem 1rem;
-        font-weight: 400;
-    }
-    li:hover{
-        background: #f7f7f7;
-        color: red;
-    }
     .category{
         color: black;
     }
@@ -76,11 +68,8 @@
         color: red;
         background: #f7f7f7;
     }
-    a:hover{
-        color: red;
-    }
     .bordered{
-        border-radius: 0.25rem;
+        border-radius: 8px;
     }
     .inline-list{
         display: flex;
@@ -91,5 +80,10 @@
         flex: 1;
         text-align: center;
         padding: 1rem;
+    }
+    .filter-selected, .inline-list li:hover{
+        background-color: white;
+        border: none;
+        border-bottom: 0.5px solid red;
     }
 </style>

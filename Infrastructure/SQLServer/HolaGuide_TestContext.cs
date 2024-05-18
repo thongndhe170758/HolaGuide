@@ -21,19 +21,11 @@ namespace Infrastructure.SQLServer
         public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
         public virtual DbSet<Image> Images { get; set; } = null!;
         public virtual DbSet<Location> Locations { get; set; } = null!;
+        public virtual DbSet<SaveService> SaveServices { get; set; } = null!;
         public virtual DbSet<Service> Services { get; set; } = null!;
         public virtual DbSet<Subcription> Subcriptions { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserSubcription> UserSubcriptions { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-2FLOH7TF; database=HolaGuide_Test; uid=ned; pwd=27062003x; Encrypt=true; TrustServerCertificate=true");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,6 +81,29 @@ namespace Infrastructure.SQLServer
                 entity.Property(e => e.Description).HasMaxLength(100);
             });
 
+            modelBuilder.Entity<SaveService>(entity =>
+            {
+                entity.ToTable("SaveService");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.SaveDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Service)
+                    .WithMany(p => p.SaveServices)
+                    .HasForeignKey(d => d.ServiceId)
+                    .HasConstraintName("FK__SaveServi__Servi__4CA06362");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SaveServices)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__SaveServi__UserI__4D94879B");
+            });
+
             modelBuilder.Entity<Service>(entity =>
             {
                 entity.ToTable("Service");
@@ -97,9 +112,18 @@ namespace Infrastructure.SQLServer
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
+                entity.Property(e => e.ContactNumber)
+                    .HasMaxLength(11)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
                 entity.Property(e => e.LocationId).HasColumnName("LocationID");
 
                 entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.OwnerId).HasColumnName("OwnerID");
 
                 entity.Property(e => e.Price)
                     .HasMaxLength(50)
@@ -116,6 +140,11 @@ namespace Infrastructure.SQLServer
                     .WithMany(p => p.Services)
                     .HasForeignKey(d => d.LocationId)
                     .HasConstraintName("FK__Service__Locatio__47DBAE45");
+
+                entity.HasOne(d => d.Owner)
+                    .WithMany(p => p.Services)
+                    .HasForeignKey(d => d.OwnerId)
+                    .HasConstraintName("FK__Service__OwnerID__4E88ABD4");
             });
 
             modelBuilder.Entity<Subcription>(entity =>

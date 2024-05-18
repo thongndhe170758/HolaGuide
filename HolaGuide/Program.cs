@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddMvc().AddRazorPagesOptions(option => option.Conventions.AddPageRoute("/Home/UserHome", "{category?}/{filter?}"));
 
 builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
 {
@@ -16,12 +17,13 @@ builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
+builder.Services.AddTransient<ISavedServiceRepository, SavedServiceRepository>();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {
     option.Cookie.Name = "MyCookieAuth";
     option.ExpireTimeSpan = TimeSpan.FromMinutes(1);
-    option.LoginPath = "/Authentication/Unauthenticated";
+    option.LoginPath = "/Authentication/Login";
     option.AccessDeniedPath = "/Authentication/AccessDenied";
 });
 
@@ -48,15 +50,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Static/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+app.UseRouting();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();

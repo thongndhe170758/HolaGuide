@@ -16,36 +16,60 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\ADMIN\Downloads\HolaGuide\HolaGuide
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Authentication/AccessDenied.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aGVudGljYXRpb25cQWNjZXNzRGVuaWVkLmNzaHRtbA==
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Advertisment/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWR2ZXJ0aXNtZW50XFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Authentication/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aGVudGljYXRpb25cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Authentication/Unauthenticated.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aGVudGljYXRpb25cVW5hdXRoZW50aWNhdGVkLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Home/UserHome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxVc2VySG9tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Service/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZVxEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Service/UserRegister.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZVxVc2VyUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Shared/Components/NearByServices/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcTmVhckJ5U2VydmljZXNcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Shared/Components/NewestServices/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcTmV3ZXN0U2VydmljZXNcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Shared/Components/SavedServices/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXENvbXBvbmVudHNcU2F2ZWRTZXJ2aWNlc1xEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Static/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhdGljXEFjY2Vzc0RlbmllZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Static/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhdGljXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Static/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhdGljXE5vdEZvdW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Static/Unauthenticated.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhdGljXFVuYXV0aGVudGljYXRlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Subcription/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViY3JpcHRpb25cUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/_ViewImports.cshtml]

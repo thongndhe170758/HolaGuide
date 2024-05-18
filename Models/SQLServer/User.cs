@@ -8,6 +8,8 @@ namespace Models.SQLServer
         public User()
         {
             Feedbacks = new HashSet<Feedback>();
+            SaveServices = new HashSet<SaveService>();
+            Services = new HashSet<Service>();
             UserSubcriptions = new HashSet<UserSubcription>();
         }
 
@@ -17,6 +19,8 @@ namespace Models.SQLServer
         public string Password { get; set; } = null!;
 
         public virtual ICollection<Feedback> Feedbacks { get; set; }
+        public virtual ICollection<SaveService> SaveServices { get; set; }
+        public virtual ICollection<Service> Services { get; set; }
         public virtual ICollection<UserSubcription> UserSubcriptions { get; set; }
     }
 }

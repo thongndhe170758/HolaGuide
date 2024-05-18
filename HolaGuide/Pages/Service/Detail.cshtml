@@ -1,0 +1,96 @@
+﻿@page "/Service/{serviceId?}"
+@model HolaGuide.Pages.Service.DetailModel
+@{
+    var listImage = Model.Service.Images.ToList();
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+@if (listImage != null && listImage.Count >= 5)
+{
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-6 rounded g-2">
+                <img src="@(listImage[0].Value)" class="image shadow" />
+            </div>
+            <div class="col-6 rounded g-2">
+                <div class="row g-2 w-100">
+                    @for (int i = 1; i < 5; i++)
+                    {
+                        <div class="col-6 rounded g-2">
+                            <img src="@(listImage[i].Value)" class="image shadow" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-4">
+            <div class="col-8">
+                <div class="row info-div">
+                    <h5>@Model.Service.Name</h5>
+                    <span class="sub-text">@Model.Service.Location?.Description</span>
+                </div>
+                <div class="row info-div">
+                    <h5>Mô tả</h5>
+                    <span class="sub-text">@Model.Service.Title</span>
+                </div>
+                <div class="row info-div">
+                    <h5>Giá dịch vụ</h5>
+                    <span class="sub-text">@Model.Service.Price</span>
+                </div>
+                <div class="row info-div">
+                    <h5>Liên hệ</h5>
+                    <span class="sub-text">@Model.Service.ContactNumber</span>
+                </div>
+            </div>
+
+            <div class="col-4 px-4">
+                <div class="w-100 p-3 shadow" style="border-radius: 8px">
+                    <h5>Vị Trí</h5>
+                    <div id="map"></div>
+                    <span class="mt-4" style="font-size: .8rem">@Model.Service.Location?.Description</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+    .image {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+    .info-div{
+        padding-bottom: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(206,168,154,0.3);
+    }
+    #map{
+        width: 100%;
+        min-height: 40vh;
+        border-radius: 8px;
+    }
+    .sub-text{
+        font-size: .8rem;
+    }
+</style>
+
+<script>
+    var longtitude = @Model.Service.Location?.Longtitude;
+    var latitude = @Model.Service.Location?.Latitude;
+
+    var map = L.map('map').setView([latitude, longtitude], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([latitude, longtitude]).addTo(map)
+        .openPopup();
+</script>
+
