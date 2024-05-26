@@ -3,8 +3,19 @@
 @{
 }
 
-<div class="w-100 bg-black" style="min-height: 10rem"></div>
-
+<div class="container">
+    <div class="row intro">
+        <div class="col-7">
+            <h1 class="intro-header">Tìm kiếm dịch vụ tại</h1>
+            <h1 class="intro-header">HolaGuide</h1>
+            <p style="color: black; font-size: 0.8rem;">Cung cấp thông tin về những gì bạn cần!</p>
+        </div>
+        <div class="col-5">
+            <img class="avatar" src="https://tse4.mm.bing.net/th?id=OIP.sQJo75fUXA80fyuX4rjCJAHaEb&pid=Api&P=0&h=220" />
+        </div>
+    </div>
+</div>
+<hr style="width: 60%; margin-left: 20%; background: linear-gradient(90deg, rgba(79,96,131,1) 30%, rgba(22,44,91,1) 75%)" />
 <div class="container" style="padding: 1rem 0">
     <div class="row">
         <div class="col-2 bordered shadow" style="background-color: white; padding: 0; height: fit-content">
@@ -26,7 +37,7 @@
             </div>
         </div>
         <div class="col bordered">
-            <div class="container-fluid" style="background-color: #dddddd; padding: 0">
+            <div class="container-fluid" style="background-color: #eeeeee; padding: 0; border-radius: 8px;">
                 <div class="col-4">
                     <ul class="inline-list w-100">
                         <li class="@(Model.FilterString.Equals("Mới Nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới Nhất">Mới Nhất</a></li>
@@ -58,6 +69,14 @@
 </div>
 
 <style>
+    .intro{
+        margin-top: 2rem;
+        padding-bottom: 1rem;
+    }
+    .intro-header{
+        font-weight: bold;
+        color: #162C5B;
+    }
     ul{
         padding: 0;
     }
@@ -69,7 +88,6 @@
         align-items: center;
     }
     .category-selected{
-        color: red;
         background: #f7f7f7;
         display: flex;
         flex-direction: row;
@@ -93,5 +111,11 @@
         background-color: white;
         border: none;
         border-bottom: 0.5px solid red;
+    }
+    .avatar{
+        width: 95%;
+        min-height: 250px;
+        border-radius: 10px;
+        border-top-left-radius: 50px;
     }
 </style>
