@@ -53,8 +53,9 @@
                     }
                     else
                     {
-                        <div class="col-auto">
-                            <a asp-page="/Authentication/Login">Đăng Nhập</a> / <a asp-page="/Authentication/Login">Đăng Ký</a>
+                        <div class="col-auto d-flex flex-row justify-content-between align-items-center">
+                            <i class="fa-regular fa-circle-user" style="margin-right: .5rem; font-size: 1.25rem"></i>
+                            <a asp-page="/Authentication/Login">Đăng Nhập</a>
                         </div>
                     }
                 </div>
@@ -113,14 +114,14 @@
         color: rgba(0,0,0,0.6);
     }
     .border-bottom{
-        border-bottom: 1px solid rgba(206,168,154,0.4);
+        border-bottom: 1px solid rgba(206,168,154,0.3);
     }
     h1,h1,h3,h4,h5,h6{
         font-weight: bold;    
         color: black;
     }
     i {
-        font-size: 1.25rem;
+        font-size: 1rem;
         color: black;
     }
 </style>

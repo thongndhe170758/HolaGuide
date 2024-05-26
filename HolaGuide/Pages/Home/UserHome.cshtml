@@ -15,11 +15,11 @@
                     {
                         if (cat.Name.Equals(Model.SelectedCategory))
                         {
-                            <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a></li>
+                            <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
                         }
                         else
                         {
-                            <li class="category"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a></li>
+                            <li class="category"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
                         }
                     }
                 </ul>
@@ -63,10 +63,18 @@
     }
     .category{
         color: black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
     .category-selected{
         color: red;
         background: #f7f7f7;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
     .bordered{
         border-radius: 8px;

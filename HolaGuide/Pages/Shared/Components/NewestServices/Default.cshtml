@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <a class="service-title" asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
                     <p class="card-text card-sub-title">@service.Location?.Description</p>
-                    <p class="card-text card-price">Price: @service.Price</p>
+                    <p class="card-text card-price"><i class="fa-solid fa-dollar-sign"></i> Price: @service.Price</p>
                 </div>
                 <div class="card-footer">
                     <div><i class="fa-regular fa-comment"></i></div>
