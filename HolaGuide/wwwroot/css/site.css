@@ -1,24 +1,70 @@
 html {
-    font-size: 16px;
+    font-size: 14px;
     position: relative;
     min-height: 100%;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 18px;
+        font-size: 16px;
     }
 }
 
 body {
-    margin-bottom: 60px;
+    color: #4F6083;
+    font-family: auto;
 }
 
 a {
+    color: #4F6083;
     text-decoration: none;
-    color: black;
 }
 
     a:hover {
         color: dodgerblue;
+    }
+
+li {
+    list-style-type: none;
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+}
+
+    li:hover {
+        background: #f7f7f7;
+    }
+
+.dropdown-item:hover {
+    background-color: transparent;
+}
+
+.btn-outline-secondary {
+    border-color: rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.6);
+}
+
+.border-bottom {
+    border-bottom: 1px solid rgba(206,168,154,0.3);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color: #162C5B;
+}
+
+i {
+    font-size: 1rem;
+    color: black;
+}
+
+.btn-custom {
+    color: black;
+    outline: none;
+    border: 1px solid #e5e5e5;
+}
+    .btn-custom:hover{
+        background-color: #4F6083;
+    }
+    .btn-custom:hover i{
+        color: white;
     }

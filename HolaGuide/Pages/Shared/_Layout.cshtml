@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-2 px-2">
                         <div class="dropdown">
-                            <button class="btn btn-white btn-outline-secondary shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-custom shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-bars"></i>
                             </button>
                             <ul class="dropdown-menu">
@@ -69,7 +69,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer">
         <div class="container">
             &copy; 2024 - HolaGuide - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
@@ -77,62 +77,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/071e3e204d.js" crossorigin="anonymous"></script>
-
+    <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-<style>
-    body{
-        color: #4F6083;
-        font-family: Lexend, sans-serif;
-    }
-    a {
-        color: #4F6083;
-        text-decoration: none;
-    }
-
-        a:hover {
-            color: dodgerblue;
-        }
-
-    li {
-        list-style-type: none;
-        padding: 0.5rem 1rem;
-        font-weight: 400;
-    }
-
-        li:hover {
-            background: #f7f7f7;
-        }
-    .dropdown-item:hover{
-        background-color: transparent;
-    }
-    .btn-outline-secondary{
-        border-color: rgba(0,0,0,0.2);
-        color: rgba(0,0,0,0.6);
-    }
-    .border-bottom{
-        border-bottom: 1px solid rgba(206,168,154,0.3);
-    }
-    h1,h2,h3,h4,h5,h6{
-        font-weight: bold;    
-        color: #4F6083;
-    }
-    i {
-        font-size: 1rem;
-        color: black;
-    }
-</style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get the height of the navbar
-        var navbarHeight = document.getElementById("myNavbar").offsetHeight;
-
-        // Set padding-top for the content area
-        document.getElementById("content").style.paddingTop = navbarHeight + "px";
-    });
-</script>

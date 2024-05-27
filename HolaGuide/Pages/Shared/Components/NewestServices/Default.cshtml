@@ -10,7 +10,7 @@
     @foreach (var service in Model)
     {
         <div class="col-md-3 mb-3" style="height: 15rem">
-            <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/HolaGuide_avt.jpg" : service.Images.First().Value)'); 
+            <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/HolaGuide_avt.png" : service.Images.First().Value)'); 
                                                   position: relative; background-position: center;">
                 <div class="card-info">
                     <a asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
@@ -31,7 +31,6 @@
         padding: 1rem;
     }
     .card-title{
-        margin-bottom: 0;
         color: white;
     }
     .card-title:hover{

@@ -9,6 +9,9 @@
             <h1 class="intro-header">Tìm kiếm dịch vụ tại</h1>
             <h1 class="intro-header">HolaGuide</h1>
             <p style="color: black; font-size: 0.8rem;">Cung cấp thông tin về những gì bạn cần!</p>
+            <div class="row">
+                <a href="#" class="link-button shadow">About Us</a>
+            </div>
         </div>
         <div class="col-5">
             <img class="avatar" src="https://tse4.mm.bing.net/th?id=OIP.sQJo75fUXA80fyuX4rjCJAHaEb&pid=Api&P=0&h=220" />
@@ -19,7 +22,7 @@
 <div class="container" style="padding: 1rem 0">
     <div class="row">
         <div class="col-2 bordered shadow" style="background-color: white; padding: 0; height: fit-content">
-            <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.5rem">Khám Phá</div>
+            <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.5rem; color: #162C5B">Khám Phá</div>
             <div class="w-100">
                 <ul class="w-100">
                     @foreach (var cat in Model.Categories)
@@ -110,12 +113,21 @@
     .filter-selected, .inline-list li:hover{
         background-color: white;
         border: none;
-        border-bottom: 0.5px solid red;
+        border-bottom: 0.5px solid dodgerblue;
     }
     .avatar{
         width: 95%;
         min-height: 250px;
         border-radius: 10px;
         border-top-left-radius: 50px;
+    }
+    .link-button{
+        color: white;
+        margin: 2rem .5rem;
+        padding: .5rem 1rem;
+        background-color: dodgerblue;
+        border-radius: 5px;
+        width: fit-content;
+        height: fit-content;
     }
 </style>
