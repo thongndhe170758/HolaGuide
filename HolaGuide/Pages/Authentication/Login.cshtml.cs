@@ -45,7 +45,7 @@ namespace HolaGuide.Pages.Authentication
 
             await HttpContext.SignInAsync("MyCookieAuth", principle);
 
-            return RedirectToPage($"/Home/{(user.Role != 2 ? "UserHome" : "AdminHome")}");
+            return RedirectToPage($"/Home/{(user.Role != "admin" ? "UserHome" : "AdminHome")}");
         }
     }
 }

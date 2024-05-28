@@ -5,26 +5,29 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models.SQLServer
 {
-    public class Feedback
+    public class UserSubscription
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
-        public string Content { get; set; } = string.Empty;
-
         [ForeignKey("User")]
         public int? UserId { get; set; }
 
-        [ForeignKey("Service")]
-        public int? ServiceId { get; set; }
+        [ForeignKey("Subscription")]
+        public int? SubscriptionId { get; set; }
 
         [Required]
         [Column(TypeName = "date")]
-        public DateTime PostDate { get; set; } = DateTime.Today;
+        public DateTime StartDate { get; set; } = DateTime.Now;
 
+        [Column(TypeName = "date")]
+        public DateTime? EndDate { get; set; }
+
+        [Required]
+        public bool IsPurchased { get; set; } = false;
+
+        public virtual Subscription? Subscription { get; set; }
         public virtual User? User { get; set; }
-        public virtual Service? Service { get; set; }
     }
 }

@@ -18,23 +18,15 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="col-1"></div>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <div class="col">
-                        <!--Search Bar-->
-                        <form class="form-inline my-2 my-lg-0 ml-auto w-100" method="post" action="@Url.Page("Search", "Index")">
-                            <div class="input-group w-100">
-                                <input class="form-control flex-grow-1 shadow-sm" type="search" placeholder="Tìm kiếm dịch vụ của chúng tôi" aria-label="Search" name="query">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-success shadow" type="submit">Search</button>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="col"></div>
+                    <div class="col-auto px-2">
+                        <div><a>Trang chủ</a></div>
                     </div>
-                    <div class="col-2 px-2">
+                    <div class="col-auto px-2">
                         <div class="dropdown">
-                            <button class="btn btn-custom shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-bars"></i>
+                            <button class="btn btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dịch vụ
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Đăng ký dịch vụ</a></li>
@@ -43,10 +35,13 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="col-auto px-2">
+                        <div><a>Giới thiệu</a></div>
+                    </div>
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
                         <div class="col-auto">
-                            <div class="bg-success text-white">
+                            <div>
                                 <span>@User.Claims.FirstOrDefault(c => c.Type == "Email")?.Value</span>
                                 <a asp-page="/Authentication/Logout">Đăng Xuất</a>
                             </div>
@@ -54,8 +49,7 @@
                     }
                     else
                     {
-                        <div class="col-auto d-flex flex-row justify-content-between align-items-center">
-                            <i class="fa-regular fa-circle-user" style="margin-right: .5rem; font-size: 1.25rem"></i>
+                        <div class="col-auto px-2">
                             <a asp-page="/Authentication/Login">Đăng Nhập</a>
                         </div>
                     }

@@ -22,7 +22,7 @@ builder.Services.AddTransient<ISavedServiceRepository, SavedServiceRepository>()
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {
     option.Cookie.Name = "MyCookieAuth";
-    option.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
     option.LoginPath = "/Authentication/Login";
     option.AccessDeniedPath = "/Authentication/AccessDenied";
 });
@@ -31,11 +31,11 @@ builder.Services.AddAuthorization(option =>
 {
     option.AddPolicy("Admin", policy =>
     {
-        policy.RequireClaim("Role", "2");
+        policy.RequireClaim("Role", "admin");
     });
     option.AddPolicy("User", policy =>
     {
-        policy.RequireClaim("Role", "1");
+        policy.RequireClaim("Role", "user");
     });
 });
 

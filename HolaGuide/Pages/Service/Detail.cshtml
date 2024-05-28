@@ -12,14 +12,14 @@
     <div class="container">
         <div class="row">
             <div class="col-6 rounded g-2">
-                <img src="@(listImage[0].Value)" class="image shadow" />
+                <img src="@(listImage[0].Path)" class="image shadow" />
             </div>
             <div class="col-6 rounded g-2">
                 <div class="row g-2 w-100">
                     @for (int i = 1; i < 5; i++)
                     {
                         <div class="col-6 rounded g-2">
-                            <img src="@(listImage[i].Value)" class="image shadow" />
+                            <img src="@(listImage[i].Path)" class="image shadow" />
                         </div>
                     }
                 </div>

@@ -52,19 +52,19 @@
             <div class="container-fluid bordered" style="padding: 0">
                 @if(Model.FilterString.Equals("Mới Nhất"))
                 {
-                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory})
+                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
                 }
                 else if (Model.FilterString.Equals("Gần Tôi"))
                 {
-                    @await Component.InvokeAsync("NearByServices", new {categoryName = Model.SelectedCategory})
+                    @await Component.InvokeAsync("NearByServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
                 }
                 else if (Model.FilterString.Equals("Đã Lưu"))
                 {
-                    @await Component.InvokeAsync("SavedServices", new {categoryName = Model.SelectedCategory})
+                    @await Component.InvokeAsync("SavedServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
                 }
                 else
                 {
-                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory})
+                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
                 }
             </div>
         </div>

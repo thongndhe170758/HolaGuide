@@ -18,6 +18,9 @@ namespace HolaGuide.Pages.Home
         [BindProperty(SupportsGet = true, Name = "filter")]
         public string? FilterString { get; set; }
 
+        [BindProperty(Name = "query")]
+        public string SearchKey { get; set; } = string.Empty;
+
         public UserHomeModel(ICategoryRepository categoryRepos)
         {
             _categoryRepos = categoryRepos;
@@ -29,6 +32,11 @@ namespace HolaGuide.Pages.Home
         }
 
         public void OnPostSaveService()
+        {
+            SetUpPage();
+        }
+
+        public void OnPost()
         {
             SetUpPage();
         }

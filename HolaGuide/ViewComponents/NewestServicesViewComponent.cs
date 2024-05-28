@@ -14,12 +14,12 @@ namespace HolaGuide.ViewComponents
             _categoryRepos = categoryRepos;
         }
 
-        public IViewComponentResult Invoke(string categoryName)
+        public IViewComponentResult Invoke(string categoryName, string searchKey)
         {
             var category = _categoryRepos.Get(c => c.Name == categoryName);
             if (category == null) return View(null);
 
-            var result = _serviceRepos.Gets(s => s.CategoryId == category.Id).OrderByDescending(s => s.Id).ToList();
+            var result = _serviceRepos.Gets(s => s.CategoryId == category.Id && s.Name.Contains(searchKey)).OrderByDescending(s => s.Id).ToList();
             return View(result);
         }
     }
