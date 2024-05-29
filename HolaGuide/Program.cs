@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddMvc().AddRazorPagesOptions(option => option.Conventions.AddPageRoute("/Home/UserHome", "{category?}/{filter?}"));
+builder.Services.AddMvc().AddRazorPagesOptions(option => option.Conventions.AddPageRoute("/Home/UserHome", "{category?}/{filter?}/{pageNum?}"));
 
 builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
 {

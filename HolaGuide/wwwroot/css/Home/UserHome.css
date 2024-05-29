@@ -1,0 +1,114 @@
+﻿.main-content {
+    padding: 1rem;
+    background-color: rgba(240,247,254,0.8);
+    border-radius: 10px;
+}
+
+.intro {
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+.intro-header {
+    font-weight: bold;
+    color: #162C5B;
+}
+
+ul {
+    padding: 0;
+}
+
+.category {
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-selected {
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bordered {
+    border-radius: 8px;
+}
+
+.inline-list {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+}
+
+    .inline-list li {
+        flex: 1;
+        text-align: center;
+        padding: 1rem;
+    }
+
+        .filter-selected, .inline-list li:hover {
+            background-color: white;
+            border: none;
+            border-bottom: 0.5px solid dodgerblue;
+        }
+
+.avatar {
+    width: 95%;
+    min-height: 250px;
+    border-radius: 10px;
+    border-top-left-radius: 50px;
+}
+
+.link-button {
+    color: white;
+    margin: 2rem .5rem;
+    padding: .5rem 1rem;
+    background-color: dodgerblue;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.search-bar {
+    display: block;
+    padding: 2rem 0;
+    width: 80%;
+}
+
+.filter {
+    position: relative;
+    border-radius: 10px;
+}
+
+    .filter .fa-search {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: #9ca3af;
+    }
+
+    .filter span {
+        position: absolute;
+        right: 17px;
+        top: 12px;
+        padding: 2px;
+        border-left: 1px solid #d1d5db;
+    }
+
+.left-pan {
+    padding-left: 7px;
+}
+
+    .left-pan i {
+        padding-left: 10px;
+    }
+
+.filter-input {
+    height: 50px;
+    text-indent: 33px;
+    border-radius: 10px;
+}

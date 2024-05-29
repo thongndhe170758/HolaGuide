@@ -22,7 +22,7 @@ namespace Services.DBRepository.Implements
 
         public List<Service> Gets(Expression<Func<Service, bool>> predicate)
         {
-            return DbContext.Services.Where(predicate).Include(s => s.Images).Include(s => s.Location).ToList();
+            return DbContext.Services.Where(predicate).Include(s => s.Category).Include(s => s.Images).Include(s => s.Location).ToList();
         }
 
         public List<Service> GetSavedServices(int UserID, int categoryID)
@@ -38,5 +38,6 @@ namespace Services.DBRepository.Implements
         {
             return DbContext.Services.Where(s => s.Id == serviceID).Include(s => s.Images).Include(s => s.Location).FirstOrDefault();
         }
+
     }
 }

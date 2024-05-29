@@ -18,8 +18,11 @@ namespace HolaGuide.Pages.Home
         [BindProperty(SupportsGet = true, Name = "filter")]
         public string? FilterString { get; set; }
 
-        [BindProperty(Name = "query")]
-        public string SearchKey { get; set; } = string.Empty;
+        [BindProperty(SupportsGet = true, Name = "query")]
+        public string? SearchKey { get; set; }
+
+        [BindProperty(SupportsGet = true, Name = "pageNum")]
+        public int? PageNumber { get; set; }
 
         public UserHomeModel(ICategoryRepository categoryRepos)
         {
@@ -51,8 +54,11 @@ namespace HolaGuide.Pages.Home
 
             if (FilterString == null)
             {
-                FilterString = "Mới Nhất";
+                FilterString = "Mới nhất";
             }
+
+            if (SearchKey == null) SearchKey = string.Empty;
+            if (PageNumber == null) PageNumber = 0;
         }
     }
 }

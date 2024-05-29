@@ -1,7 +1,7 @@
-@page 
+@page
 @model HolaGuide.Pages.Home.UserHomeModel
-@{
-}
+
+<link rel="stylesheet" href="~/css/Home/UserHome.css" />
 
 <div class="container">
     <div class="row intro">
@@ -10,17 +10,27 @@
             <h1 class="intro-header">HolaGuide</h1>
             <p style="color: black; font-size: 0.8rem;">Cung cấp thông tin về những gì bạn cần!</p>
             <div class="row">
-                <a href="#" class="link-button shadow">About Us</a>
+                <form class="search-bar" method="post">
+                    <div class="filter shadow">
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="form-control filter-input" placeholder="Tìm kiếm dịch vụ của chúng tôi" name="query" value="@Model.SearchKey">
+                        <input type="hidden" name="category" value="@Model.SelectedCategory" />
+                        <input type="hidden" name="filter" value="@Model.FilterString" />
+                        <span class="left-pan"><i class="fa fa-microphone"></i></span>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="col-5">
-            <img class="avatar" src="https://tse4.mm.bing.net/th?id=OIP.sQJo75fUXA80fyuX4rjCJAHaEb&pid=Api&P=0&h=220" />
+            <img class="avatar shadow" src="/images/holaguide_avatar.png" />
         </div>
     </div>
 </div>
+
 <hr style="width: 60%; margin-left: 20%; background: linear-gradient(90deg, rgba(79,96,131,1) 30%, rgba(22,44,91,1) 75%)" />
+
 <div class="container" style="padding: 1rem 0">
-    <div class="row">
+    <div class="row main-content">
         <div class="col-2 bordered shadow" style="background-color: white; padding: 0; height: fit-content">
             <div class="w-100 fw-bold" style="font-size: 1.5rem; padding: 0.5rem; color: #162C5B">Khám Phá</div>
             <div class="w-100">
@@ -29,11 +39,11 @@
                     {
                         if (cat.Name.Equals(Model.SelectedCategory))
                         {
-                            <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
                         }
                         else
                         {
-                            <li class="category"><a asp-page="/Home/UserHome" asp-route-category="@cat.Name">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            <li class="category"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
                         }
                     }
                 </ul>
@@ -41,93 +51,61 @@
         </div>
         <div class="col bordered">
             <div class="container-fluid" style="background-color: #eeeeee; padding: 0; border-radius: 8px;">
-                <div class="col-4">
+                <div class="col-6">
                     <ul class="inline-list w-100">
-                        <li class="@(Model.FilterString.Equals("Mới Nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới Nhất">Mới Nhất</a></li>
-                        <li class="@(Model.FilterString.Equals("Gần Tôi") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần Tôi">Gần Tôi</a></li>
-                        <li class="@(Model.FilterString.Equals("Đã Lưu") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã Lưu">Đã Lưu</a></li>
+                        <li class="@(Model.FilterString.Equals("Mới nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới nhất">Mới nhất</a></li>
+                        <li class="@(Model.FilterString.Equals("Giá rẻ") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Giá rẻ">Giá rẻ</a></li>
+                        <li class="@(Model.FilterString.Equals("Gần tôi") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần tôi">Gần tôi</a></li>
+                        <li class="@(Model.FilterString.Equals("Đã lưu") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã lưu">Đã lưu</a></li>
                     </ul>
                 </div>
             </div>
             <div class="container-fluid bordered" style="padding: 0">
-                @if(Model.FilterString.Equals("Mới Nhất"))
+                @if (Model.FilterString.Equals("Mới Nhất"))
                 {
-                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
+                    @await Component.InvokeAsync("NewestServices", 
+                    new 
+                    {
+                        categoryName = Model.SelectedCategory,
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                    })
                 }
                 else if (Model.FilterString.Equals("Gần Tôi"))
                 {
-                    @await Component.InvokeAsync("NearByServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
+                    @await Component.InvokeAsync("NearByServices", 
+                    new 
+                    {
+                        categoryName = Model.SelectedCategory, 
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                    })
                 }
                 else if (Model.FilterString.Equals("Đã Lưu"))
                 {
-                    @await Component.InvokeAsync("SavedServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
+                    @await Component.InvokeAsync("SavedServices", 
+                    new 
+                    {
+                        categoryName = Model.SelectedCategory, 
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                    })
                 }
                 else
                 {
-                    @await Component.InvokeAsync("NewestServices", new {categoryName = Model.SelectedCategory, searchKey = Model.SearchKey})
+                    @await Component.InvokeAsync("NewestServices", 
+                    new 
+                    {
+                        categoryName = Model.SelectedCategory, 
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                    })
                 }
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    .intro{
-        margin-top: 2rem;
-        padding-bottom: 1rem;
-    }
-    .intro-header{
-        font-weight: bold;
-        color: #162C5B;
-    }
-    ul{
-        padding: 0;
-    }
-    .category{
-        color: black;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .category-selected{
-        background: #f7f7f7;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .bordered{
-        border-radius: 8px;
-    }
-    .inline-list{
-        display: flex;
-        padding: 0;
-        justify-content: center;
-    }
-    .inline-list li{
-        flex: 1;
-        text-align: center;
-        padding: 1rem;
-    }
-    .filter-selected, .inline-list li:hover{
-        background-color: white;
-        border: none;
-        border-bottom: 0.5px solid dodgerblue;
-    }
-    .avatar{
-        width: 95%;
-        min-height: 250px;
-        border-radius: 10px;
-        border-top-left-radius: 50px;
-    }
-    .link-button{
-        color: white;
-        margin: 2rem .5rem;
-        padding: .5rem 1rem;
-        background-color: dodgerblue;
-        border-radius: 5px;
-        width: fit-content;
-        height: fit-content;
-    }
-</style>
