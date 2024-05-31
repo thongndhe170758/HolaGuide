@@ -65,5 +65,6 @@ button.accept-policy {
     width: 100%;
     white-space: nowrap;
     padding: 2rem;
+    margin-top: 4rem;
     background-color: #4F6083;
 }

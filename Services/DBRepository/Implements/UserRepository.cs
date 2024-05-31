@@ -25,5 +25,19 @@ namespace Services.DBRepository.Implements
         {
             return await DbContext.Users.Where(predicate).ToListAsync();
         }
+
+        public string GenerateUserCode()
+        {
+            bool isExist = false;
+            string code = string.Empty;
+            do
+            {
+                var codenumber = new Random().Next(100000, 999999);
+                code = $"HG{codenumber}";
+                isExist = DbContext.Users.Any(u => u.Code.Equals(code));
+            }
+            while(!isExist);
+            return code; 
+        }
     }
 }

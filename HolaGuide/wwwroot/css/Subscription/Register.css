@@ -1,0 +1,115 @@
+﻿.title-row{
+    text-align: center;
+    padding: 3rem 0;
+}
+.decoration-line {
+    width: 10%;
+    margin-left: 45%;
+    border-radius: 10px;
+    background-color: #4F6083;
+    height: 5px;
+}
+
+.subscription-packages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 5rem;
+    height: 580px;
+    overflow-y: hidden;
+}
+
+.subscription-package {
+    height: 500px;
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    background-color: #E6EFF8;
+    position: relative;
+    margin: 0 .5rem;
+}
+
+    .subscription-package.selected {
+        background-color: #4F6083;
+        border: none;
+        border-radius: 20px;
+        height: 580px; 
+        overflow-y: hidden;
+    }
+    .subscription-package.selected .row{
+        border-radius: 20px;
+    }
+        .subscription-package.selected .package-info li {
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .subscription-package.selected .package-info li i{
+            color: white;
+            margin-right: .5rem;
+        }
+        .subscription-package.selected .package-info li:hover{
+            background-color: transparent;
+        }
+        .subscription-package.selected .package-name{
+            color: white;
+        }
+        .subscription-package.selected .package-price{
+            color: white;
+        }
+        .subscription-package.selected .package-btn {
+            background-color: #E6EFF8;
+            color: #4F6083;
+        }
+            .subscription-package.selected .package-btn:hover {
+                background-color: aliceblue;
+            }
+        .subscription-package.selected .package-info{
+            padding-top: 3rem;
+        }
+        .subscription-package.selected .package-duration {
+            color: #F0F7FE;
+        }
+
+        .package-info {
+            text-align: left;
+            padding: 1rem;
+        }
+        .package-info li{
+            display: flex;
+            align-items: center;
+        }
+        .package-info li i{
+            margin-right: .5rem;
+        }
+
+.package-price{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.package-btn{
+    border-radius: 10px;
+    padding: 1rem;
+    width: 80%;
+    margin-left: 10%;
+    position: absolute;
+    bottom: 20px;
+    background-color: #4F6083;
+    color: white;
+    border: none;
+}
+.package-title{
+    display: none;
+}
+.package-duration{
+    font-size: .9rem;
+    color: rgba(0,0,0,0.6);
+}
+
+
+

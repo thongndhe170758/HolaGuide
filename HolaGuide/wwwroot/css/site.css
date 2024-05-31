@@ -56,6 +56,9 @@ i {
     font-size: 1rem;
     color: black;
 }
+p{
+    margin-bottom: 0;
+}
 
 .btn-custom {
     color: #162C5B;

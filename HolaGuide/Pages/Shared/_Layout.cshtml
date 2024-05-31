@@ -11,6 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sevillana&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/images/holaguide.ico" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/071e3e204d.js" crossorigin="anonymous"></script>
+    <script src="~/js/site.js"></script>
 </head>
 <body>
     <header>
@@ -25,10 +30,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <div class="col"></div>
                     <div class="col-auto px-2">
-                        <div><a asp-page="/User/UserHome">Trang chủ</a></div>
+                        <div><a asp-area="" asp-page="/Home/UserHome">Trang chủ</a></div>
                     </div>
                     <div class="col-auto px-2">
-                        <div><a asp-page="/General/AboutUs">Giới thiệu</a></div>
+                        <div><a asp-area="" asp-page="/General/AboutUs">Giới thiệu</a></div>
                     </div>
                     <div class="col-auto px-2">
                         <div class="dropdown">
@@ -37,7 +42,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Dịch vụ của tôi</a></li>
-                                <li><a class="dropdown-item" href="/Subscription/Register">Đăng ký gói thành viên</a></li>
+                                <li><a class="dropdown-item" asp-page="/Subscription/Register">Đăng ký gói thành viên</a></li>
                                 <li><a class="dropdown-item" href="#">Đăng ký quảng cáo</a></li>
                             </ul>
                         </div>
@@ -45,9 +50,14 @@
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
                         <div class="col-auto">
-                            <div>
-                                <span>@User.Claims.FirstOrDefault(c => c.Type == "Email")?.Value</span>
-                                <a asp-page="/Authentication/Logout">Đăng Xuất</a>
+                            <div class="dropdown">
+                                <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Claims.FirstOrDefault(c => c.Type == "Code")?.Value
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
+                                    <li><a class="dropdown-item" href="#">Đăng Xuất</a></li>
+                                </ul>
                             </div>
                         </div>
                     }
@@ -73,10 +83,6 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/071e3e204d.js" crossorigin="anonymous"></script>
-    <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

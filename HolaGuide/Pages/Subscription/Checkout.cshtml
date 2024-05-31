@@ -1,0 +1,118 @@
+﻿@page "{subscriptionId}"
+@model HolaGuide.Pages.Subscription.CheckoutModel
+
+<link rel="stylesheet" href="/css/Subscription/Checkout.css" />
+
+<div class="container">
+    <div class="row title-row">
+        <h2>Thanh toán đơn hàng</h2>
+    </div>
+    <div class="decoration-line"></div>
+    <div class="row">
+        <div class="col-lg-5 col sm-12">
+            <div class="row package-info">
+                <div><h4>Gói của bạn:</h4></div>
+                <div class="package-detail">
+                    <ul>
+                        <li>Tên gói: <span class="package-detail-value">@Model.SelectedSubscription.Name - @Model.SelectedSubscription.Title</span></li>
+                        <li>Thời hạn: <span class="package-detail-value">@(Model.SelectedSubscription.DurationDays == null ? "Vô thời hạn" : $"{Model.SelectedSubscription.DurationDays} ngày")</span></li>
+                        <li>Ngày bắt đầu: <span class="package-detail-value">@DateTime.Now.ToString("dd-MM-yyyy")</span></li>
+                        <li>Ngày hết hạn: <span class="package-detail-value">@(Model.SelectedSubscription.DurationDays == null ? "Vô thời hạn" : DateTime.Now.AddDays((double)Model.SelectedSubscription.DurationDays).ToString("dd-MM-yyyy HH:m"))</span></li>
+                    </ul>
+                </div>
+                <hr />
+                <div>
+                    <h4>Thanh toán: <span style="color: steelblue">@Model.SelectedSubscription.ToMoneyFormat()</span></h4>
+                    <form method="post">
+                        <input type="hidden" name="userId" value="@int.Parse(User.Claims.First(c => c.Type == "ID").Value)" />
+                        <input type="hidden" name="subscriptionId" value="@Model.SelectedSubscription.Id" />
+                        <button type="submit" class="package-btn" id="confirm-btn">Xác nhận hoàn thành</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="decoration-line subline"></div>
+
+            <div class="row payment-method selected" id="payment-method1" onclick="ChoosePaymentMethod(1)">
+                <div class="payment-text">
+                    <div class="payment-decoration"></div>
+                    <div>MoMo</div>
+                </div>
+                <div class="payment-icon-container">
+                    <img class="payment-icon" src="/images/momo_icon.png" />
+                </div>
+            </div>
+            <div class="row payment-method" id="payment-method2" onclick="ChoosePaymentMethod(2)">
+                <div class="payment-text">
+                    <div class="payment-decoration"></div>
+                    <div>ZaloPay</div>
+                </div>
+                <div class="payment-icon-container">
+                    <img class="payment-icon" src="/images/zalopay_icon.png" />
+                </div>
+            </div>
+            <div class="row payment-method" id="payment-method3" onclick="ChoosePaymentMethod(3)">
+                <div class="payment-text">
+                    <div class="payment-decoration"></div>
+                    <div>Chuyển khoản ngân hàng</div>
+                </div>
+                <div class="payment-icon-container">
+                    <img class="payment-icon" src="/images/bidv_icon.png" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 col sm-12">
+            <div class="row QRow">
+                <div><h4 class="text-center">Quét mã QR để thanh toán</h4></div>
+                <div class="QRContainer momo selected" id="QRContainer1">
+                    <img src="/images/momo_QR.jpg" />
+                </div>
+                <div class="QRContainer zalopay" id="QRContainer2">
+                   <img src="/images/zalopay_QR.jpg" />
+                </div>
+                <div class="QRContainer bidv" id="QRContainer3">
+                    <img src="/images/bidv_Qr.jpg" />
+                </div>
+
+                <div>
+                    <p class="text-center">Người nhận: <span class="package-detail-value">HA QUANG DAO</span></p>
+                    <p class="text-center">Nội dung:  <span class="package-detail-value">NED</span></p>
+                </div>
+
+                <div class="payment-warning">
+                    <p>
+                        <span class="package-detail-value">
+                            Lưu ý:
+                        </span>
+                            Vui lòng nhập đúng số tiền và nội dung chuyển khoản. Nếu nhập sai, liên hệ facebook để
+                            được giải quyết. Sau khi chuyển tiền thành công, vui lòng bấm nút hoàn thành, tài khoản của bạn sẽ được cập nhật trong vài giờ.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#confirm-btn').click(function () {
+        $(this).text('Đã xác nhận');
+        $(this).addClass('confirmed');
+    });
+
+    function ChoosePaymentMethod(index) {
+        var id = 'payment-method' + index;
+        $('.payment-method').each(function () {
+            $(this).removeClass('selected');
+        });
+
+        $('#' + id).addClass('selected')
+
+        var qrId = 'QRContainer' + index
+        $('.QRContainer').each(function () {
+            $(this).removeClass('selected');
+        });
+
+        $('#' + qrId).addClass('selected')
+    }
+</script>

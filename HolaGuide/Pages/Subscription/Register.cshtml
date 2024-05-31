@@ -2,3 +2,91 @@
 @model HolaGuide.Pages.Subcription.RegisterModel
 @{
 }
+
+<link rel="stylesheet" href="/css/Subscription/Register.css" />
+
+<div class="container">
+    <div class="row title-row">
+        <h2>Đăng ký gói thành viên</h2>
+    </div>
+    <div class="decoration-line"></div>
+    <div class="row py-4 text-center">
+        <span style="color: rgba(0,0,0,0.6)">Đăng ký Membership để trải nghiệm đa dạng tính năng và dịch vụ hơn.</span>
+        <span style="color: #162C5B; font-weight: bold" id="page-package-title"></span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="subscription-packages" id="packagesContainer">
+            @for (int i = 1; i <= Model.Subscriptions.Count; i++)
+            {
+                var item = Model.Subscriptions[i - 1];
+                <div class="subscription-package shadow @(i == 2 ? "selected" : "")" id="package@(i)" onmouseover="selectPackage(@(i))">
+                    <div class="package-title">@item.Title</div>
+                    <div class="row">
+                        <h4 class="package-name">@item.Name</h4>
+                    </div>
+                    <span class="package-price">@item.ToMoneyFormat()</span>
+                    <div class="row package-info">
+                        <ul>
+                            @{
+                                var listRights = item.GetUserRights();
+                                foreach (var right in listRights)
+                                {
+                                    <li><i class="fa-solid fa-check"></i>@right</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="row">
+                        @{
+                            if (Model.UserSubscription.Contains(item.Id))
+                            {
+                                <a class="package-btn disabled">Đã đăng ký</a>
+                            }
+                            else
+                            {
+                                if (!item.Status)
+                                {
+                                    <a class="package-btn disabled">Sắp ra mắt</a>
+                                }
+                                else
+                                {
+                                    <a class="package-btn shadow" asp-page="/Subscription/Checkout" asp-route-subscriptionId="@item.Id">Đăng ký</a>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectPackage(selectedIndex) {
+        // Remove the 'selected' class from all packages
+        document.querySelectorAll('.subscription-package').forEach(function (element) {
+            element.classList.remove('selected');
+            element.classList.remove('shadow');
+        });
+
+        // Add the 'selected' class to the clicked package
+        let currentPackage = document.getElementById(`package${selectedIndex}`);
+        currentPackage.classList.add('selected');
+        currentPackage.classList.add('shadow');
+
+        getPackageTitle();
+    }
+
+    function getPackageTitle() {
+        const title = document.querySelector('.selected .package-title');
+        if (title) {
+            document.getElementById("page-package-title").innerHTML = title.innerHTML;
+        }
+        else {
+            document.getElementById("page-package-title").innerHTML = "Trải nghiệm tốt hơn";
+        }
+    }
+
+    getPackageTitle();
+</script>

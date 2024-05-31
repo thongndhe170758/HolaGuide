@@ -3,3 +3,11 @@
 @{
     Layout = null;
 }
+
+<form method="post" asp-page-handler="Login">
+    <input value="@Model.ReturnUrl" name="returnUrl" type="hidden"/>
+    <input type="text" name="email" />
+    <input type="text" name="password" />
+    <input type="submit" value="login" />
+</form>
+<span class="text-danger">@Model.ErrorMessage</span>

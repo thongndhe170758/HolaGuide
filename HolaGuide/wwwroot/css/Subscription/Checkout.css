@@ -1,0 +1,130 @@
+﻿.title-row {
+    text-align: center;
+    padding: 3rem 0;
+}
+.decoration-line {
+    width: 10%;
+    margin-left: 45%;
+    border-radius: 10px;
+    background-color: #4F6083;
+    height: 5px;
+    margin-bottom: 2rem;
+}
+    .decoration-line.subline {
+        width: 20%;
+        margin: 1rem;
+        margin-left: 40%;
+    }
+
+.package-info{
+    padding: 2rem;
+    background-color: #E6EFF8;
+    border-radius: 10px;
+}
+
+.payment-method {
+    background-color: #E6EFF8;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+    .payment-method:hover{
+        cursor: pointer;
+        background-color: aliceblue;
+    }
+.payment-text{
+    display: inherit;
+    color: #4F6083;
+    font-weight: bold;
+    width: fit-content;
+}
+.payment-decoration{
+    border: 1px solid rgba(0,0,0,0.6);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+    background-color: white;
+}
+    .payment-method.selected .payment-decoration{
+        border: 5px solid green;
+    }
+.payment-icon-container{
+    width: fit-content;
+}
+.payment-icon{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.payment-warning{
+    padding: 1rem;
+    margin-top: 2rem;
+    text-align: justify;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.package-detail ul{
+    padding: 1rem 0;
+}
+.package-detail li{
+    padding: 0.5rem 0;
+}
+.package-detail-value{
+    color: #4F6083;
+    font-weight: bold;
+}
+.package-btn{
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    text-align: center;
+    padding: .5rem;
+    background-color: #4F6083;
+    color: aliceblue;
+}
+    .package-btn:hover {
+        background-color: rgba(79, 96, 131, 0.8)
+    }
+    .package-btn.confirmed {
+        color: green;
+        background-color: white;
+        border: 1px solid green;
+        cursor: pointer;
+    }
+
+.QRow {
+    background-color: #E6EFF8;
+    padding: 2rem;
+    margin-left: 1rem;
+    border-radius: 10px;
+}
+.QRContainer{
+    display: none;
+    width: 50%;
+    height: fit-content;
+    margin: 2rem 25% 1rem 25%;
+    border-radius: 10px;
+    padding: 1rem;
+}
+    .QRContainer.momo {
+        background-color: #a00061;
+    }
+.QRContainer.zalopay{
+    background-color: cornflowerblue;
+}
+.QRContainer.bidv{
+    background-color: lightseagreen;
+}
+.QRContainer img{
+    border-radius: 10px;
+    width: 100%;
+}
+.QRContainer.selected{
+    display: block;
+}

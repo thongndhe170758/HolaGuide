@@ -4,6 +4,7 @@ using Infrastructure.SQLServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HolaGuide_TestContext))]
-    partial class HolaGuide_TestContextModelSnapshot : ModelSnapshot
+    [Migration("20240531195435_fix_user")]
+    partial class fix_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,6 +272,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("date");
+
+                    b.Property<bool>("IsActivate")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsPurchased")
                         .HasColumnType("bit");

@@ -18,13 +18,15 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 builder.Services.AddTransient<ISavedServiceRepository, SavedServiceRepository>();
+builder.Services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
+builder.Services.AddTransient<IUserSubscriptionRepository, UserSubscriptionRepository>();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {
     option.Cookie.Name = "MyCookieAuth";
-    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(10);
     option.LoginPath = "/Authentication/Login";
-    option.AccessDeniedPath = "/Authentication/AccessDenied";
+    option.AccessDeniedPath = "/Static/AccessDenied";
 });
 
 builder.Services.AddAuthorization(option =>

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HolaGuide.Pages.Static
+namespace HolaGuide.Pages.General
 {
-    public class UnauthenticatedModel : PageModel
+    public class AboutUsModel : PageModel
     {
         public void OnGet()
         {

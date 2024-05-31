@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Services.DBRepository.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserSubscriptionRepository
     {
-        public Task<User?> Get(Expression<Func<User, bool>> predicate);
-        public Task<List<User>> Gets(Expression<Func<User, bool>> predicate);
-        public string GenerateUserCode();
+        public List<UserSubscription> Gets(Expression<Func<UserSubscription, bool>> predicate);
+        public string Create(UserSubscription? userSubscription);
     }
 }

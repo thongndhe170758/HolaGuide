@@ -17,7 +17,7 @@ namespace Models.SQLServer
 
         [Required]
         [Column(TypeName = "varchar(5)")]
-        public string Role { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty; 
 
         [Required]
         [Column(TypeName = "varchar(50)")]
@@ -25,10 +25,13 @@ namespace Models.SQLServer
 
         [Required]
         [Column(TypeName = "varbinary(64)")]
-        public string Password { get; set; } = string.Empty;
+        public byte[]? Password { get; set; } 
 
+        //Dùng để làm nội dung chuyển khoản 
         [Required]
-        public bool IsSubcripted { get; set; } = false;
+        public string Code { get; set;} = string.Empty;
+
+        public bool? IsActivate { get; set; }
 
         public virtual ICollection<Feedback> Feedbacks { get; set; } = new HashSet<Feedback>();
         public virtual ICollection<SaveService> SaveServices { get; set; } = new HashSet<SaveService>();

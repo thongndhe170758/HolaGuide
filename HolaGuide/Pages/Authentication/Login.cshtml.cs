@@ -3,7 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models.Input_Models;
 using Services.DBRepository.Interfaces;
+using Services.Global;
+using System.Collections;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace HolaGuide.Pages.Authentication
 {
@@ -14,6 +18,9 @@ namespace HolaGuide.Pages.Authentication
         [BindProperty(SupportsGet = true, Name = "error")]
         public string ErrorMessage { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string ReturnUrl { get; set; }
+
         public LoginModel(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -23,29 +30,33 @@ namespace HolaGuide.Pages.Authentication
         {
         }
 
-        public async Task<IActionResult> OnPostLogin(UserCredentials credentials)
+        public async Task<IActionResult> OnPostLogin(string returnUrl,UserCredentials credentials)
         {
             var user = await _userRepository.Get(s => s.Email == credentials.Email);
             if (user == null)
             {
                 return RedirectToPage(new { error = "No Email Found!" });
             }
-            if (!user.Password.Equals(credentials.Password))
+            if (!GlobalService.VerifyPassword(credentials.Password, Encoding.Unicode.GetString(user.Password)))
             {
-                return RedirectToPage(new { error = "Incorrect Password!" });
+                return RedirectToPage(new { error = returnUrl ?? "asdasd" });
             }
             var claims = new List<Claim>
             {
                 new Claim("ID", user.Id.ToString()),
                 new Claim("Email", user.Email),
-                new Claim("Role",user.Role.ToString())
+                new Claim("Role",user.Role.ToString()),
+                new Claim("Code", user.Code),
+                new Claim("Name", user.Name)
             };
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
             var principle = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync("MyCookieAuth", principle);
 
-            return RedirectToPage($"/Home/{(user.Role != "admin" ? "UserHome" : "AdminHome")}");
+            string alternativeUrl = $"/Home/{(user.Role != "admin" ? "UserHome" : "AdminHome")}";
+            return RedirectToPage(string.IsNullOrEmpty(returnUrl) ? alternativeUrl : returnUrl);
         }
+
     }
 }
