@@ -1,13 +1,148 @@
-﻿@page
+﻿@page "{authType?}"
 @model HolaGuide.Pages.Authentication.LoginModel
-@{
-    Layout = null;
-}
 
-<form method="post" asp-page-handler="Login">
-    <input value="@Model.ReturnUrl" name="returnUrl" type="hidden"/>
-    <input type="text" name="email" />
-    <input type="text" name="password" />
-    <input type="submit" value="login" />
-</form>
-<span class="text-danger">@Model.ErrorMessage</span>
+<link rel="stylesheet" href="~/css/Authentication/Login.css" />
+
+<body style="background-color: #E6EFF8">
+    <div class="limiter">
+        <div class="container-login100 shadow">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post" asp-page-handler="Login" style="display: @(Model.Type.Equals("login") ? "flex" : "none")">
+                    <span class="login100-form-title fw-bold"> Account Login </span><br />
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage) && Model.Type.Equals("login"))
+                    {
+                        <div>
+                            <span class="text-danger mb-2"> @Model.ErrorMessage </span>
+                        </div>
+                    }
+                    <input type="hidden" value="@Model.ReturnUrl" name="returnUrl" />
+
+                    <div class="wrap-input100 validate-input" style="margin-top: .5rem" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Email</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="password" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Mật khẩu</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="isRemember" />
+                            <label class="label-checkbox100" for="ckb1"> Remember me </label>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">Login</button>
+                    </div>
+
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2">
+                            Don't have account? <a href="#" style="color: #4F6083" class="signup-link fw-bold">Sign up here!</a>
+                        </span>
+                    </div>
+                </form>
+
+                <!-- Signup form -->
+                <form id="signup_form" class="signup-form validate-form" style="display: @(Model.Type.Equals("login") ? "none" : "flex")" method="post" asp-page-handler="SignUp">
+                    <span class="login100-form-title fw-bold"> Sign Up </span>
+                    <span class="login100-form-text p-b-30">Become a member and enjoy our services</span><br />
+
+                    @if(Model.Type.Equals("signup") && !string.IsNullOrEmpty(Model.ErrorMessage)){
+                        <div>
+                            <span class="text-danger mb-2" id="signup-validator">@Model.ErrorMessage</span>
+                        </div>
+                    }
+                    <div class="wrap-input100 validate-input" style="margin-top: .5rem" data-validate="Full Name is required">
+                        <input class="input100" type="text" name="fullName" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Họ và tên</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" id="signup-email" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Email</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="password" id="signup-password" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Mật khẩu</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="confirmPassword" id="signup-confirmpassword" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Xác nhận mật khẩu</span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">Sign Up</button>
+                    </div>
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2">
+                            Already have account? <a href="#" style="color: #4F6083" class="login-link fw-bold">Login here!</a>
+                        </span>
+                    </div>
+                </form>
+
+                <div class="login100-more" style="background-image: url('/images/login_background.png')"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const signupLink = document.querySelector('.signup-link');
+            const loginLink = document.querySelector('.login-link');
+            const loginForm = document.querySelector('.login100-form');
+            const signupForm = document.querySelector('.signup-form');
+
+            signupLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'flex';
+            });
+
+            loginLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                loginForm.style.display = 'flex';
+                signupForm.style.display = 'none';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('.input100');
+
+            inputs.forEach(function (input) {
+                const label = input.nextElementSibling.nextElementSibling;
+
+                input.addEventListener('focus', function () {
+                    label.style.top = '-0.5rem';
+                    label.style.fontSize = '13px';
+                    label.style.backgroundColor = 'white';
+                    label.style.width = 'fit-content';
+                });
+
+                input.addEventListener('blur', function () {
+                    if (!input.value.trim()) {
+                        label.style.top = 'calc(1rem - 2px)';
+                        label.style.fontSize = '20px';
+                    }
+                });
+
+                // Check if the input has value on page load
+                if (input.value.trim()) {
+                    label.style.top = '-0.5rem';
+                    label.style.fontSize = '13px';
+                }
+            });
+        });
+
+    </script>
+
+</body>

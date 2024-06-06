@@ -1,0 +1,73 @@
+﻿.image {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.info-div {
+    padding: .5rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #E6EFF8;
+    border-radius: 10px;
+}
+
+.map-wrapper {
+    border-radius: 10px;
+    background-color: #E6EFF8;
+}
+#map, .map-disabled {
+    width: 100%;
+    min-height: 40vh;
+    border-radius: 8px;
+}
+.map-disabled{
+    background-image: url('/images/blur_pic.jpg');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+    .map-disabled p, a {
+        color: #4F6083;
+    }
+    .map-disabled a{
+        font-weight: bold;
+    }
+
+.sub-text {
+    font-size: 1rem;
+    padding: 1rem 0;
+    color: black;
+}
+.sub-text.value{
+    color: #4F6083;
+    font-weight: bold;
+}
+
+.feedback{
+    padding: 1rem 0;
+}
+.feedback-user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1rem;
+    padding-left: 0;
+}
+.wrapper-user-feedback{
+    display: flex;
+    align-items: center;
+}
+
+.wrapper-user-feedback .img{
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    margin-right: .5rem;
+    background-image: url('/images/login_background.png');
+    background-size: cover;
+    background-position: center;
+}
+

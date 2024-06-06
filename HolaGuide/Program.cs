@@ -20,6 +20,7 @@ builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 builder.Services.AddTransient<ISavedServiceRepository, SavedServiceRepository>();
 builder.Services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddTransient<IUserSubscriptionRepository, UserSubscriptionRepository>();
+builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {

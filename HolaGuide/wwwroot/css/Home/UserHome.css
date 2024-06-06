@@ -1,6 +1,6 @@
 ﻿.main-content {
     padding: 1rem;
-    background-color: rgba(240,247,254,0.8);
+    background-color: #E6EFF8;
     border-radius: 10px;
 }
 
@@ -57,10 +57,11 @@ ul {
         }
 
 .avatar {
-    width: 95%;
+    width: 70%;
     min-height: 250px;
     border-radius: 10px;
     border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
 
 .link-button {

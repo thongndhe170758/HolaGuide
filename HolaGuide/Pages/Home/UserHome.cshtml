@@ -1,4 +1,4 @@
-@page 
+@page
 @model HolaGuide.Pages.Home.UserHomeModel
 
 <link rel="stylesheet" href="~/css/Home/UserHome.css" />
@@ -21,8 +21,8 @@
                 </form>
             </div>
         </div>
-        <div class="col-5">
-            <img class="avatar shadow" src="/images/holaguide_avatar.png" />
+        <div class="col-5 d-flex flex-row justify-content-end px-2">
+            <img class="avatar shadow" src="/images/logov2.png" />
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
                     <ul class="inline-list w-100">
                         <li class="@(Model.FilterString.Equals("Mới nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới nhất">Mới nhất</a></li>
                         <li class="@(Model.FilterString.Equals("Giá rẻ") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Giá rẻ">Giá rẻ</a></li>
-                        <li class="@(Model.FilterString.Equals("Gần tôi") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần tôi">Gần tôi</a></li>
+                        <li class="@(Model.FilterString.Equals("Gần tôi") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần tôi" id="nearbyService">Gần tôi</a></li>
                         <li class="@(Model.FilterString.Equals("Đã lưu") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã lưu">Đã lưu</a></li>
                     </ul>
                 </div>
@@ -63,49 +63,130 @@
             <div class="container-fluid bordered" style="padding: 0">
                 @if (Model.FilterString.Equals("Mới Nhất"))
                 {
-                    @await Component.InvokeAsync("NewestServices", 
-                    new 
-                    {
-                        categoryName = Model.SelectedCategory,
-                        searchKey = Model.SearchKey,
-                        filter = Model.FilterString,
-                        pageNum = Model.PageNumber
-                    })
+                    @await Component.InvokeAsync("NewestServices",
+                new
+                {
+                categoryName = Model.SelectedCategory,
+                searchKey = Model.SearchKey,
+                filter = Model.FilterString,
+                pageNum = Model.PageNumber
+                })
                 }
                 else if (Model.FilterString.Equals("Gần Tôi"))
                 {
-                    @await Component.InvokeAsync("NearByServices", 
-                    new 
-                    {
-                        categoryName = Model.SelectedCategory, 
-                        searchKey = Model.SearchKey,
-                        filter = Model.FilterString,
-                        pageNum = Model.PageNumber
-                    })
+                    @await Component.InvokeAsync("SavedServices",
+                new
+                {
+                categoryName = Model.SelectedCategory,
+                searchKey = Model.SearchKey,
+                filter = Model.FilterString,
+                pageNum = Model.PageNumber
+                })
                 }
                 else if (Model.FilterString.Equals("Đã Lưu"))
                 {
-                    @await Component.InvokeAsync("SavedServices", 
-                    new 
-                    {
-                        categoryName = Model.SelectedCategory, 
-                        searchKey = Model.SearchKey,
-                        filter = Model.FilterString,
-                        pageNum = Model.PageNumber
-                    })
+                    @await Component.InvokeAsync("SavedServices",
+                new
+                {
+                categoryName = Model.SelectedCategory,
+                searchKey = Model.SearchKey,
+                filter = Model.FilterString,
+                pageNum = Model.PageNumber
+                })
                 }
                 else
                 {
-                    @await Component.InvokeAsync("NewestServices", 
-                    new 
-                    {
-                        categoryName = Model.SelectedCategory, 
-                        searchKey = Model.SearchKey,
-                        filter = Model.FilterString,
-                        pageNum = Model.PageNumber
-                    })
+                    @await Component.InvokeAsync("NewestServices",
+                new
+                {
+                categoryName = Model.SelectedCategory,
+                searchKey = Model.SearchKey,
+                filter = Model.FilterString,
+                pageNum = Model.PageNumber
+                })
                 }
             </div>
         </div>
     </div>
 </div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Thông báo</h5>
+                </div>
+                <div class="modal-body">
+                    @Model.Message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeModalBtn" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+        $('#closeModelBtn').Click(function () {
+            $('#myModel').modal('hide');
+        })
+    </script>
+}
+
+<script>
+    $('#nearbyService').click(function () {
+        event.preventDefault();
+        if ("geolocation" in navigator) {
+            // Geolocation is supported
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    // Success callback
+                    const userLatitude = position.coords.latitude;
+                    const userLongitude = position.coords.longitude;
+                    console.log("User's latitude:", userLatitude);
+                    console.log("User's longitude:", userLongitude);
+
+                    fetch(`/Home/UserHome?handler=SetPosition&longtitude=${userLongitude}&latitude=${userLatitude}`, {
+                        method: 'POST'
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log("C# variable set successfully.");
+                                // Optionally, you can reload the page or update the UI here
+                            } else {
+                                console.error(@Model.UserPosition);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error setting C# variable:", error.message);
+                        });
+                },
+                function (error) {
+                    // Error callback
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            console.error("User denied the request for Geolocation.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            console.error("Location information is unavailable.");
+                            break;
+                        case error.TIMEOUT:
+                            console.error("The request to get user location timed out.");
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            console.error("An unknown error occurred.");
+                            break;
+                    }
+                }
+            );
+        } else {
+            // Geolocation is not supported
+            console.error("Geolocation is not supported by this browser.");
+        }
+    })
+</script>

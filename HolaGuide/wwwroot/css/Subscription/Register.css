@@ -16,6 +16,7 @@
     align-items: center;
     width: 100%;
     padding: 1rem 5rem;
+    padding-bottom: 2rem;
     height: 580px;
     overflow-y: hidden;
 }

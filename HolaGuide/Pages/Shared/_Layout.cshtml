@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sevillana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="/images/holaguide.ico" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -19,7 +20,7 @@
 </head>
 <body>
     <header>
-        <nav id="myNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow" 
+        <nav id="myNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow"
              style="padding: 1rem 0; position: fixed; top: 0; width: 100%; z-index: 1000;">
             <div class="container">
                 <a class="navbar-brand" style="font-family: 'Poetsen One', sans-serif; color: #162c5b;" asp-area="" asp-page="/Home/UserHome">HolaGuide✦</a>
@@ -56,7 +57,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
-                                    <li><a class="dropdown-item" href="#">Đăng Xuất</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Authentication/Logout">Đăng Xuất</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -71,15 +72,23 @@
             </div>
         </nav>
     </header>
-    <div id="content" class="w-100" style="min-height: 100vh">
-        <main role="main" class="pb-3">
+    <div id="content" class="w-100">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer">
         <div class="container">
-            &copy; 2024 - HolaGuide - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <div class="row text-center">
+                <h5 style="color: #E6EFF8">Thông tin liên hệ</h5>
+                <div class="footer-contact-area">
+                    <div class="footer-contact-item"><i class="fa-brands fa-facebook" style="color: #E6EFF8"></i><a style="color: #E6EFF8" href="https://www.facebook.com/profile.php?id=61560169739725">HolaGuide</a></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-envelope" style="color: #E6EFF8"></i><a style="color: #E6EFF8">Hzned2019@gmail.com</a></div>
+                    <div class="footer-contact-item"><i class="fa-solid fa-phone" style="color: #E6EFF8"></i><a style="color: #E6EFF8">0969645417</a></div>
+                </div>
+                <p>&copy; 2024 - HolaGuide - Holaguide.click</p>
+            </div>
         </div>
     </footer>
 

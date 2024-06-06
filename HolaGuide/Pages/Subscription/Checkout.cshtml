@@ -77,7 +77,7 @@
 
                 <div>
                     <p class="text-center">Người nhận: <span class="package-detail-value">HA QUANG DAO</span></p>
-                    <p class="text-center">Nội dung:  <span class="package-detail-value">NED</span></p>
+                    <p class="text-center">Nội dung:  <span class="package-detail-value">@User.Claims.First(c => c.Type == "Code").Value</span></p>
                 </div>
 
                 <div class="payment-warning">

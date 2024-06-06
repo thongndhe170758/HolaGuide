@@ -5,11 +5,16 @@
 }
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="/css/Service/Detail.css" />
+<link rel="stylesheet" href="/css//Home/ServiceComponent/Default.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 @if (listImage != null && listImage.Count >= 5)
 {
-    <br />
     <div class="container">
+        <div class="row">
+            <h3 class="m-4 text-center">@Model.Service.Name</h3>
+        </div>
         <div class="row">
             <div class="col-6 rounded g-2">
                 <img src="@(listImage[0].Path)" class="image shadow" />
@@ -28,69 +33,87 @@
 
         <div class="row py-4">
             <div class="col-8">
+                <h4>Thông tin cơ bản</h4>
                 <div class="row info-div">
-                    <h5>@Model.Service.Name</h5>
-                    <span class="sub-text"><i class="fa-solid fa-location-dot" style="color: #4F6083"></i> @Model.Service.Location?.Description</span>
+                    <p class="sub-text"><i class="fa-solid fa-location-dot" style="color: #4F6083; margin-right: .5rem"></i>Vị trí: <span class="sub-text value">@Model.Service.Location?.Description</span></p>
+                    <p class="sub-text"><i class="fa-solid fa-dollar-sign" style="color: #4F6083; margin-right: .5rem"></i>Giá tiền: <span class="sub-text value">@Model.Service.GetFullPrice()</span></p>
+                    <p class="sub-text"><i class="fa-solid fa-circle-info" style="color: #4F6083; margin-right: .5rem"></i>Mô tả: <span class="sub-text value">@Model.Service.Title</span></p>
                 </div>
+
+                <h4>Bình luận</h4>
                 <div class="row info-div">
-                    <h5>Mô tả</h5>
-                    <span class="sub-text">@Model.Service.Title</span>
-                </div>
-                <div class="row info-div">
-                    <h5>Giá dịch vụ</h5>
-                    <span class="sub-text">@Model.Service.Price</span>
-                </div>
-                <div class="row info-div">
-                    <h5>Liên hệ</h5>
-                    <span class="sub-text">@Model.Service.ContactNumber</span>
+                    <div class="feedback-area">
+                        @foreach(var data in Model.Feedbacks)
+                        {
+                            <div class="row feedback">
+                                <div class="feedback-user">
+                                    <div class="wrapper-user-feedback">
+                                        <div class="img"></div>
+                                        <div>
+                                            <h6>@data.User.Name</h6>
+                                            <p>@data.Content</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
 
-            <div class="col-4 px-4">
-                <div class="w-100 p-3 shadow" style="border-radius: 8px">
-                    <h5>Vị Trí</h5>
-                    <div id="map"></div>
-                    <span class="mt-4" style="font-size: .8rem">@Model.Service.Location?.Description</span>
+            <div class="col-4 px-4" style="padding-top: 2rem">
+                <div class="w-100 p-3 shadow map-wrapper">
+                    <h4>Vị trí chi tiết</h4>
+                    @if (!User.Identity.IsAuthenticated || User.Claims.First(c => c.Type == "IsSubscript").Value.Equals("False"))
+                    {
+                        <div class="map-disabled">
+                            <p class="text-center">Bạn cần đăng ký thành vên để xem vị trí chi tiết</p>
+                            <a class="text-center" asp-page="/Subscription/Register">Đăng ký thành viên</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="map"></div>
+                        <span class="mt-4" style="font-size: .8rem">@Model.Service.Location?.Description</span>
+
+                        <script>
+                            var longtitude = @Model.Service.Location?.Longtitude;
+                            var latitude = @Model.Service.Location?.Latitude;
+
+                            var map = L.map('map').setView([latitude, longtitude], 10);
+
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; HolaGuideMap contributors'
+                            }).addTo(map);
+
+                            L.marker([latitude, longtitude]).addTo(map)
+                                .openPopup();
+                        </script>
+                    }
                 </div>
             </div>
+        </div><br/>
+
+        <h4>Dịch vụ liên quan</h4>
+        <div class="row">
+            @foreach(var service in Model.RelatedServices)
+            {
+                <div class="col-md-3 col-sm-6 mb-3" style="height: 15rem">
+                    <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/HolaGuide_avt.png" : service.Images.First().Path)');
+                                                  position: relative; background-position: center;">
+                        <div class="card-info">
+                            <a asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
+                            <p class="card-subtitle">@service.Location.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 }
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<style>
-    .image {
-        width: 100%;
-        height: 100%;
-        border-radius: 8px;
-    }
-    .info-div{
-        padding-bottom: 2rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid rgba(206,168,154,0.3);
-    }
-    #map{
-        width: 100%;
-        min-height: 40vh;
-        border-radius: 8px;
-    }
-    .sub-text{
-        font-size: .8rem;
-    }
-</style>
 
-<script>
-    var longtitude = @Model.Service.Location?.Longtitude;
-    var latitude = @Model.Service.Location?.Latitude;
 
-    var map = L.map('map').setView([latitude, longtitude], 10);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    L.marker([latitude, longtitude]).addTo(map)
-        .openPopup();
-</script>
 

@@ -38,7 +38,8 @@ namespace HolaGuide.Pages.Subscription
                 StartDate = DateTime.Now,
                 EndDate = subscription.DurationDays == null ? null : DateTime.Now.AddDays(subscription.DurationDays.Value),
             };
-            _userSubscriptionRepos.Create(userSubscription);
+            var result = _userSubscriptionRepos.Create(userSubscription);
+            TempData["message"] = result;
             return RedirectToPage("/Home/UserHome");
         }
     }
