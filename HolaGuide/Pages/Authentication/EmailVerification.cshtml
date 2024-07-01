@@ -1,0 +1,73 @@
+﻿@page
+@model HolaGuide.Pages.Authentication.EmailVerificactionModel
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/Authentication/Login.css" />
+
+<body style="background-color: #E6EFF8">
+    <div class="limiter">
+        <div class="container-login100 shadow">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post" asp-page-handler="Login" style="display: flex">
+                    <span class="login100-form-title fw-bold"> Email Verification </span><br />
+                    <span class="login100-form-text p-b-30">Please check your email and enter the verification code!</span><br />
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div>
+                            <span class="text-danger mb-2"> @Model.ErrorMessage </span>
+                        </div>
+                    }
+                    <input name="verificationCode" value="@Model.VerificationCode" type="hidden" />
+                    <input name="expirationTime" value="@Model.ExpirationTime" type="hidden" />
+
+                    <div class="wrap-input100 validate-input" style="margin-top: .5rem" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="inputVerificationCode" maxlength="6" required />
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Verification code</span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">Confirm</button>
+                    </div>
+                    <p>Tôi không nhận được mã? <a asp-page="/Authentication/EmailVerification">Gửi lại</a></p>
+                </form>
+
+                <div class="login100-more" style="background-image: url('/images/login_background.png')"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('.input100');
+
+            inputs.forEach(function (input) {
+                const label = input.nextElementSibling.nextElementSibling;
+
+                input.addEventListener('focus', function () {
+                    label.style.top = '-0.5rem';
+                    label.style.fontSize = '13px';
+                    label.style.backgroundColor = 'white';
+                    label.style.width = 'fit-content';
+                });
+
+                input.addEventListener('blur', function () {
+                    if (!input.value.trim()) {
+                        label.style.top = 'calc(1rem - 2px)';
+                        label.style.fontSize = '20px';
+                    }
+                });
+
+                // Check if the input has value on page load
+                if (input.value.trim()) {
+                    label.style.top = '-0.5rem';
+                    label.style.fontSize = '13px';
+                }
+            });
+        });
+
+    </script>
+
+</body>

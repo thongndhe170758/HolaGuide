@@ -10,8 +10,9 @@ namespace Services.DBRepository.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<User?> Get(Expression<Func<User, bool>> predicate);
-        public Task<List<User>> Gets(Expression<Func<User, bool>> predicate);
-        public string GenerateUserCode();
+        public User? Get(Expression<Func<User, bool>> predicate);
+        public List<User> Gets(Expression<Func<User, bool>> predicate);
+        public string Create(User user);
+        public string UpdateActivation(User updateUser);
     }
 }

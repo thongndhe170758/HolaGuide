@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query;
 using Services.DBRepository.Interfaces;
 
 namespace HolaGuide.ViewComponents

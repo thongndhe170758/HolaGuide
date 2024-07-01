@@ -18,20 +18,20 @@
                     <input type="hidden" value="@Model.ReturnUrl" name="returnUrl" />
 
                     <div class="wrap-input100 validate-input" style="margin-top: .5rem" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" required />
+                        <input class="input100" type="text" asp-for="@Model.LoginCredentials.Email" required />
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="password" required />
+                        <input class="input100" type="password" asp-for="@Model.LoginCredentials.Password" required />
                         <span class="focus-input100"></span>
                         <span class="label-input100">Mật khẩu</span>
                     </div>
 
                     <div class="mb-2">
                         <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="isRemember" />
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" asp-for="@Model.LoginCredentials.IsRemember" />
                             <label class="label-checkbox100" for="ckb1"> Remember me </label>
                         </div>
                     </div>
@@ -57,26 +57,28 @@
                             <span class="text-danger mb-2" id="signup-validator">@Model.ErrorMessage</span>
                         </div>
                     }
+                    <input type="hidden" value="@Model.ReturnUrl" name="returnUrl" />
+
                     <div class="wrap-input100 validate-input" style="margin-top: .5rem" data-validate="Full Name is required">
-                        <input class="input100" type="text" name="fullName" required />
+                        <input class="input100" type="text" asp-for="@Model.RegisterCredentials.FullName" required />
                         <span class="focus-input100"></span>
                         <span class="label-input100">Họ và tên</span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" id="signup-email" required />
+                        <input class="input100" type="text" asp-for="@Model.RegisterCredentials.Email" id="signup-email" required />
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="password" id="signup-password" required />
+                        <input class="input100" type="password" asp-for="@Model.RegisterCredentials.Password" id="signup-password" required />
                         <span class="focus-input100"></span>
                         <span class="label-input100">Mật khẩu</span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="confirmPassword" id="signup-confirmpassword" required />
+                        <input class="input100" type="password" asp-for="@Model.RegisterCredentials.ConfirmPassword" id="signup-confirmpassword" required />
                         <span class="focus-input100"></span>
                         <span class="label-input100">Xác nhận mật khẩu</span>
                     </div>

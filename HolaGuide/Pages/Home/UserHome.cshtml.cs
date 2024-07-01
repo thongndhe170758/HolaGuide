@@ -21,12 +21,16 @@ namespace HolaGuide.Pages.Home
         [BindProperty(SupportsGet = true, Name = "query")]
         public string? SearchKey { get; set; }
 
-        [BindProperty(SupportsGet = true, Name = "pageNum")]
+        [BindProperty(SupportsGet = true, Name = "pagenumber")]
         public int? PageNumber { get; set; }
 
         public string? Message { get; set; }
 
-        public Position? UserPosition { get; set; }
+        [BindProperty(SupportsGet = true, Name = "longitude")]
+        public double? Longitude { get; set; }
+
+        [BindProperty(SupportsGet = true, Name = "latitude")]
+        public double? Latitude { get; set; }
 
         public UserHomeModel(ICategoryRepository categoryRepos)
         {
@@ -48,14 +52,6 @@ namespace HolaGuide.Pages.Home
             SetUpPage();
         }
 
-        public IActionResult OnPostSetPosition(double? longtitude, double? latitude)
-        {
-            longtitude = longtitude ?? 0;
-            latitude = latitude ?? 0;
-            UserPosition = new Position { Latitude = longtitude.Value, Longitude = latitude.Value };
-            return new OkResult();
-        }
-
         private void SetUpPage()
         {
             Message = TempData["message"] as string;
@@ -67,20 +63,14 @@ namespace HolaGuide.Pages.Home
             var category = _categoryRepos.Get(c => c.Name == SelectedCategory);
             if (category == null) SelectedCategory = Categories[0].Name;
 
-            if (FilterString == null)
+            if (string.IsNullOrEmpty(FilterString))
             {
                 FilterString = "Mới nhất";
             }
 
             if (SearchKey == null) SearchKey = string.Empty;
-            if (PageNumber == null) PageNumber = 0;
+            if (PageNumber == null) PageNumber = 1;
         }
-    }
-
-    public class Position
-    {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
     }
 }
 

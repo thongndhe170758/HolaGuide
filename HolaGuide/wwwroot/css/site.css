@@ -23,6 +23,10 @@ body {
     padding-bottom: 2rem;
 }
 
+.dropdown-menu{
+    border-radius: 10px;
+}
+
 a {
     color: #162C5B;
     text-decoration: none;

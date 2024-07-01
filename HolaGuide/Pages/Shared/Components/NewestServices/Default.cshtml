@@ -33,7 +33,7 @@ else
             {
                 <div class="col-md-6 col-sm-6 col-xl-4 mb-3" style="height: 15rem">
                     <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/holaguide_avatar.png" : service.Images.First().Path)');
-                                                  position: relative; background-position: center;">
+                                                  position: relative; background-position: center; background-size: cover">
                         <div class="card-info">
                             <a asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
                             <p class="card-subtitle">@service.Location.Description</p>
@@ -46,13 +46,13 @@ else
             <ul class="pagination-area">
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="1">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="1">
                     <i class="fa fa-angle-double-left"></i>
                     </a>
                 </li>
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@(Model.Page == 1 ? 1 : Model.Page - 1)">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == 1 ? 1 : Model.Page - 1)">
                     <i class="fa fa-angle-left"></i>
                     </a>
                 </li>
@@ -68,19 +68,19 @@ else
                     {
                         <li>
                             <a class="pagination-item shadow"
-                               asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@i">@(i)</a>
+                               asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@i">@(i)</a>
                         </li>
                     }
                 }
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@(Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1)">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1)">
                     <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@Model.LastPage">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@Model.LastPage">
                     <i class="fa fa-angle-double-right"></i>
                     </a>
                 </li>
@@ -98,7 +98,7 @@ else
             {
                 <div class="col-md-3 col-sm-6 col-xl-4 mb-3" style="height: 15rem">
                     <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/HolaGuide_avt.png" : service.Images.First().Path)');
-                                                  position: relative; background-position: center;">
+                                                  position: relative; background-position: center; background-size: cover">
                         <div class="card-info">
                             <a asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
                             <p class="card-subtitle">@service.Location.Description</p>
@@ -111,13 +111,13 @@ else
             <ul class="pagination-area">
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="1">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="1">
                         <i class="fa fa-angle-double-left"></i>
                     </a>
                 </li>
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@(Model.Page == 1 ? 1 : Model.Page - 1)">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == 1 ? 1 : Model.Page - 1)">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 </li>
@@ -133,19 +133,19 @@ else
                     {
                         <li>
                             <a class="pagination-item shadow"
-                               asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@i">@(i)</a>
+                               asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@i">@(i)</a>
                         </li>
                     }
                 }
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@(Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1)">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1)">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
                 <li>
                     <a class="pagination-item shadow"
-                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pageNum="@Model.LastPage">
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@Model.LastPage">
                         <i class="fa fa-angle-double-right"></i>
                     </a>
                 </li>

@@ -1,5 +1,6 @@
 ﻿using Infrastructure.SQLServer;
 using Microsoft.EntityFrameworkCore;
+using Models.Output_Models;
 using Models.SQLServer;
 using Services.DBRepository.Interfaces;
 using Services.Repository.Implements;
@@ -39,5 +40,22 @@ namespace Services.DBRepository.Implements
             return DbContext.Services.Where(s => s.Id == serviceID).Include(s => s.Images).Include(s => s.Location).FirstOrDefault();
         }
 
+        public EntityOperationResponse<Service> Create(Service service)
+        {
+            try
+            {
+                DbContext.Services.Add(service);
+                var result = DbContext.SaveChanges();
+                if(result <= 0)
+                {
+                    return new EntityOperationResponse<Service> { DataCount = 0, Message = "Create service fail!" };
+                }
+                return new EntityOperationResponse<Service> { Message = "success", DataCount = result, Data = service };
+            }
+            catch(Exception ex)
+            {
+                return new EntityOperationResponse<Service> { Message = ex.InnerException == null ? ex.Message : ex.InnerException.Message, DataCount = 0 };
+            }
+        }
     }
 }

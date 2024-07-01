@@ -16,17 +16,50 @@ namespace Services.DBRepository.Implements
     {
         public UserRepository(HolaGuide_TestContext dbContext) : base(dbContext) { }
 
-        public async Task<User?> Get(Expression<Func<User, bool>> predicate)
+        public User? Get(Expression<Func<User, bool>> predicate)
         {
-            return await DbContext.Users.FirstOrDefaultAsync(predicate);
+            return DbContext.Users.FirstOrDefault(predicate);
         }
 
-        public async Task<List<User>> Gets(Expression<Func<User, bool>> predicate)
+        public List<User> Gets(Expression<Func<User, bool>> predicate)
         {
-            return await DbContext.Users.Where(predicate).ToListAsync();
+            return DbContext.Users.Where(predicate).ToList();
         }
 
-        public string GenerateUserCode()
+        public string Create(User user)
+        {
+            try
+            {
+                user.Code = GenerateUserCode();
+                DbContext.Users.Add(user);
+                var result = DbContext.SaveChanges();
+                if (result != 0) return "Đăng kí thành công";
+                return "Đăng kí thất bại";
+            }
+            catch(Exception ex)
+            {
+                return ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            }
+        }
+
+        public string UpdateActivation(User updateUser)
+        {
+            try
+            {
+                var user = DbContext.Users.FirstOrDefault(u => u.Email == updateUser.Email);
+                if (user == null) return $"Can not find user with email '{updateUser.Email}'";
+                if (updateUser.IsActivate == user.IsActivate) return "Nothing to update!";
+                user.IsActivate = updateUser.IsActivate;
+                DbContext.Entry(user).State = EntityState.Modified;
+                return DbContext.SaveChanges().ToString();
+            }
+            catch(Exception ex)
+            {
+                return ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+            }
+        }
+
+        private string GenerateUserCode()
         {
             bool isExist = false;
             string code = string.Empty;
@@ -34,7 +67,7 @@ namespace Services.DBRepository.Implements
             {
                 var codenumber = new Random().Next(100000, 999999);
                 code = $"HG{codenumber}";
-                isExist = DbContext.Users.Any(u => u.Code.Equals(code));
+                isExist = !DbContext.Users.Any(u => u.Code.Equals(code));
             }
             while(!isExist);
             return code; 

@@ -19,6 +19,10 @@ p {
     margin: 0px;
 }
 
+.text-danger{
+    color: red;
+}
+
 /*---------------------------------------------*/
 input {
     outline: none;

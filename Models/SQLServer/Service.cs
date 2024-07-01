@@ -50,7 +50,7 @@ namespace Models.SQLServer
 
         public string GetFullPrice()
         {
-            return $"{Price}đ";
+            return $"{Price}₫";
         }
     }
 }

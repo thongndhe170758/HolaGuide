@@ -70,4 +70,41 @@
     background-size: cover;
     background-position: center;
 }
+.feedback-date {
+    font-size: .8rem;
+    color: rgba(0,0,0,0.4);
+}
+.myfeedback-form{
+    display: inherit;
+}
+
+.feedback-form {
+    flex: 1;
+    position: relative;
+    padding: 0;
+}
+.feedback-form input{
+    width: 100%;
+    border-radius: 10px;
+    padding: .5rem 1rem;
+    border: 1px solid rgba(0,0,0,0.4);
+    outline: none;
+}
+.feedback-form button{
+    position: absolute;
+    right: 1rem;
+    width: fit-content;
+    height: 100%;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.feedback-form button i{
+    font-size: 1.25rem;
+}
+
 

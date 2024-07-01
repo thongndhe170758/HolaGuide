@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddMvc().AddRazorPagesOptions(option => option.Conventions.AddPageRoute("/Home/UserHome", "{category?}/{filter?}/{pageNum?}"));
+builder.Services.AddMvc().AddRazorPagesOptions(option => option.Conventions.AddPageRoute("/Home/UserHome",""));
 
 builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
 {
@@ -21,6 +21,7 @@ builder.Services.AddTransient<ISavedServiceRepository, SavedServiceRepository>()
 builder.Services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddTransient<IUserSubscriptionRepository, UserSubscriptionRepository>();
 builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddTransient<IImageRepository, ImageRepository>();
 
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", option =>
 {

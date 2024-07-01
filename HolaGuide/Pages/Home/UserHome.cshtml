@@ -16,6 +16,13 @@
                         <input type="text" class="form-control filter-input" placeholder="Tìm kiếm dịch vụ của chúng tôi" name="query" value="@Model.SearchKey">
                         <input type="hidden" name="category" value="@Model.SelectedCategory" />
                         <input type="hidden" name="filter" value="@Model.FilterString" />
+                        @{
+                            if(Model.FilterString.Equals("Gần tôi"))
+                            {
+                                <input type="hidden" name="latitude" value="@Model.Latitude" />
+                                <input type="hidden" name="longitude" value="@Model.Longitude" />
+                            }
+                        }
                         <span class="left-pan"><i class="fa fa-microphone"></i></span>
                     </div>
                 </form>
@@ -26,8 +33,7 @@
         </div>
     </div>
 </div>
-
-<hr style="width: 60%; margin-left: 20%; background: linear-gradient(90deg, rgba(79,96,131,1) 30%, rgba(22,44,91,1) 75%)" />
+<br />
 
 <div class="container" style="padding: 1rem 0">
     <div class="row main-content">
@@ -39,71 +45,87 @@
                     {
                         if (cat.Name.Equals(Model.SelectedCategory))
                         {
-                            <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            if (Model.FilterString.Equals("Gần tôi"))
+                            {
+                                <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString" asp-route-longitude="@Model.Longitude" asp-route-latitude="@Model.Latitude">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            }
+                            else
+                            {
+                                <li class="category-selected"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            }
                         }
                         else
                         {
-                            <li class="category"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            if (Model.FilterString.Equals("Gần tôi"))
+                            {
+                                <li class="category"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString" asp-route-longitude="@Model.Longitude" asp-route-latitude="@Model.Latitude">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            }
+                            else
+                            {
+                                <li class="category"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@cat.Name" asp-route-filter="@Model.FilterString">@cat.Name</a><i class="fa-solid fa-angle-right"></i></li>
+                            }
                         }
                     }
                 </ul>
             </div>
         </div>
         <div class="col bordered">
-            <div class="container-fluid" style="background-color: #eeeeee; padding: 0; border-radius: 8px;">
+            <div class="container-fluid" style="background-color: white; padding: 0; border-radius: 8px;">
                 <div class="col-6">
                     <ul class="inline-list w-100">
-                        <li class="@(Model.FilterString.Equals("Mới nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới nhất">Mới nhất</a></li>
+                        <li style="border-top-left-radius: 10px; border-bottom-left-radius: 10px" class="@(Model.FilterString.Equals("Mới nhất") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Mới nhất">Mới nhất</a></li>
                         <li class="@(Model.FilterString.Equals("Giá rẻ") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Giá rẻ">Giá rẻ</a></li>
-                        <li class="@(Model.FilterString.Equals("Gần tôi") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Gần tôi" id="nearbyService">Gần tôi</a></li>
+                        <li class="@(Model.FilterString.Equals("Gần tôi") ? "filter-selected" : String.Empty)"><a href="#" id="nearbyService" data-category="@Model.SelectedCategory" @(string.IsNullOrEmpty(Model.SearchKey) ? $"data-query={Model.SearchKey}" : string.Empty)>Gần tôi</a></li>
                         <li class="@(Model.FilterString.Equals("Đã lưu") ? "filter-selected" : String.Empty)"><a asp-page="/Home/UserHome" asp-route-query="@Model.SearchKey" asp-route-category="@Model.SelectedCategory" asp-route-filter="Đã lưu">Đã lưu</a></li>
                     </ul>
                 </div>
             </div>
             <div class="container-fluid bordered" style="padding: 0">
-                @if (Model.FilterString.Equals("Mới Nhất"))
+                @if (Model.FilterString.Equals("Mới nhất"))
                 {
                     @await Component.InvokeAsync("NewestServices",
-                new
-                {
-                categoryName = Model.SelectedCategory,
-                searchKey = Model.SearchKey,
-                filter = Model.FilterString,
-                pageNum = Model.PageNumber
-                })
+                    new
+                    {
+                        categoryName = Model.SelectedCategory,
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                     })
                 }
-                else if (Model.FilterString.Equals("Gần Tôi"))
+                else if (Model.FilterString.Equals("Gần tôi"))
+                {
+                    @await Component.InvokeAsync("NearByServices",
+                    new
+                    {
+                        categoryName = Model.SelectedCategory,
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber,
+                        longitude = Model.Longitude,
+                        latitude = Model.Latitude
+                    })
+                }
+                else if (Model.FilterString.Equals("Đã lưu"))
                 {
                     @await Component.InvokeAsync("SavedServices",
-                new
-                {
-                categoryName = Model.SelectedCategory,
-                searchKey = Model.SearchKey,
-                filter = Model.FilterString,
-                pageNum = Model.PageNumber
-                })
-                }
-                else if (Model.FilterString.Equals("Đã Lưu"))
-                {
-                    @await Component.InvokeAsync("SavedServices",
-                new
-                {
-                categoryName = Model.SelectedCategory,
-                searchKey = Model.SearchKey,
-                filter = Model.FilterString,
-                pageNum = Model.PageNumber
-                })
+                    new
+                    {
+                        categoryName = Model.SelectedCategory,
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                    })
                 }
                 else
                 {
                     @await Component.InvokeAsync("NewestServices",
-                new
-                {
-                categoryName = Model.SelectedCategory,
-                searchKey = Model.SearchKey,
-                filter = Model.FilterString,
-                pageNum = Model.PageNumber
-                })
+                    new
+                    {
+                        categoryName = Model.SelectedCategory,
+                        searchKey = Model.SearchKey,
+                        filter = Model.FilterString,
+                        pageNum = Model.PageNumber
+                    })
                 }
             </div>
         </div>
@@ -139,32 +161,29 @@
 }
 
 <script>
-    $('#nearbyService').click(function () {
-        event.preventDefault();
+    var link = $('#nearbyService');
+    link.click(function () {
         if ("geolocation" in navigator) {
             // Geolocation is supported
             navigator.geolocation.getCurrentPosition(
                 function (position) {
                     // Success callback
+                    console.log('success');
                     const userLatitude = position.coords.latitude;
                     const userLongitude = position.coords.longitude;
-                    console.log("User's latitude:", userLatitude);
-                    console.log("User's longitude:", userLongitude);
+                    var category = link.data('category');
+                    var query = link.data('query');
 
-                    fetch(`/Home/UserHome?handler=SetPosition&longtitude=${userLongitude}&latitude=${userLatitude}`, {
-                        method: 'POST'
-                    })
-                        .then(response => {
-                            if (response.ok) {
-                                console.log("C# variable set successfully.");
-                                // Optionally, you can reload the page or update the UI here
-                            } else {
-                                console.error(@Model.UserPosition);
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error setting C# variable:", error.message);
-                        });
+                    let href;
+                    if(query === null){
+                        href = "/Home/UserHome?category=" + category + "&filter=Gần tôi&longitude=" + userLongitude + "&latitude=" + userLatitude
+                    }
+                    else{
+                        href = "/Home/UserHome?category=" + category + "&filter=Gần tôi&query="+query+"&longitude=" + userLongitude + "&latitude=" + userLatitude
+                    }
+                    
+                    link.attr('href', href);
+                    window.location.href = link.attr('href');
                 },
                 function (error) {
                     // Error callback

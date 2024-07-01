@@ -1,4 +1,5 @@
 ﻿using Infrastructure.SQLServer;
+using Microsoft.EntityFrameworkCore;
 using Models.SQLServer;
 using Services.DBRepository.Interfaces;
 using Services.Repository.Implements;
@@ -17,7 +18,7 @@ namespace Services.DBRepository.Implements
 
         public List<UserSubscription> Gets(Expression<Func<UserSubscription, bool>> predicate)
         {
-            return DbContext.UserSubscriptions.Where(predicate).ToList();
+            return DbContext.UserSubscriptions.Include(u => u.Subscription).Where(predicate).ToList();
         }
 
         public string Create(UserSubscription? userSubscription)
@@ -26,7 +27,9 @@ namespace Services.DBRepository.Implements
             try
             {
                 DbContext.UserSubscriptions.Add(userSubscription);
-                return DbContext.SaveChanges().ToString();
+                var result = DbContext.SaveChanges();
+                if (result != 0) return "Hệ thống đang kiểm tra, tài khoản của bạn sẽ được cập nhật trong vài giờ tới.";
+                return "Lõi hệ thống";
             }
             catch(Exception ex)
             {

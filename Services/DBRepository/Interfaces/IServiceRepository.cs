@@ -1,4 +1,5 @@
-﻿using Models.SQLServer;
+﻿using Models.Output_Models;
+using Models.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Services.DBRepository.Interfaces
         public Service? Get(Expression<Func<Service, bool>> predicate);
         public List<Service> GetSavedServices(int UserID, int categoryID);
         public Service? GetDetailedService(int serviceID);
+        public EntityOperationResponse<Service> Create(Service service);
     }
 }

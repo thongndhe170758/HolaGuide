@@ -32,4 +32,13 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\services\motel\" />
+    <Folder Include="wwwroot\images\services\medical\" />
+    <Folder Include="wwwroot\images\services\entertainment\" />
+    <Folder Include="wwwroot\images\services\others\" />
+    <Folder Include="wwwroot\images\services\shopping\" />
+    <Folder Include="wwwroot\images\Users\" />
+  </ItemGroup>
+
 </Project>

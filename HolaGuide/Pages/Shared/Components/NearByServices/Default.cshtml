@@ -3,76 +3,160 @@
 *@
 @{
     @using Models.SQLServer;
-    @model List<Service>
-
+    @model dynamic
+    var data = Model.Data;
 }
 
-<div class="row">
-    @foreach (var service in Model)
+<link rel="stylesheet" href="/css/Home/ServiceComponent/Default.css" />
+
+@if (Model.TotalResult == 0)
+{
+    if (string.IsNullOrEmpty(Model.Search))
     {
-        <div class="col-md-3 mb-3">
-            <div class="card h-100">
-                <img src="https://th.bing.com/th/id/OIP.s3C0UYqb62MfL0SUiVgfAgHaFj?w=232&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="card-img-top" style="height: 50%;" alt="Service Image">
-                <div class="card-body">
-                    <a class="service-title" asp-page="/Static/Controller" asp-page-handler="CheckService" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
-                    <p class="card-text sub-title">@service.Title</p>
-                    <p class="card-text">Price: @service.Price</p>
-                </div>
-                <div class="card-footer">
-                    <div><i class="fa-regular fa-comment"></i></div>
-                    <div style="background-color: #dddddd; border-radius: 5px; width: fit-content; padding: .25rem .5rem">
-                        <form method="post" asp-page="/Home/UserHome" asp-page-handler="SaveService">
-                            <i class="fa-solid fa-bookmark" style="font-size: .9rem"></i>
-                            <button type="submit" class="btn save-button">Lưu</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="row px-4 text-center">
+            <p>Không tìm thấy kết quả cho <span style="color: #4F6083">"@Model.Category"</span></p>
         </div>
     }
-</div>
-<style>
-    h6 {
-        margin-bottom: 0;
+    else
+    {
+        <div class="row px-4 text-center">
+            <p>Không tìm thấy kết quả cho <span style="color: #4F6083">@Model.Search</span> ở @Model.Category</p>
+        </div>
     }
-
-    .sub-title {
-        color: #838181;
-        margin-bottom: 1rem;
-        font-size: .8rem
+}
+else
+{
+    if (string.IsNullOrEmpty(Model.Search))
+    {
+        <div class="row">
+            @foreach (var service in data)
+            {
+                <div class="col-md-6 col-sm-6 col-xl-4 mb-3" style="height: 15rem">
+                    <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/holaguide_avatar.png" : service.Images[0].Path)');
+                                                  position: relative; background-position: center; background-size: cover">
+                        <div class="card-info">
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <a asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
+                                <p class="card-distance">@(service.Distance < 1 ? $"{Math.Round(service.Distance * 1000)}m" : $"{service.Distance.ToString("F1")}km")</p>
+                            </div>
+                            <p class="card-subtitle">@service.Location.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row d-flex flex-row justify-content-center align-items-center">
+            <ul class="pagination-area">
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="1" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == 1 ? 1 : Model.Page - 1)" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
+                @for (int i = (Model.Page == 1 ? 1 : Model.Page - 1); i <= (Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1); i++)
+                {
+                    if (Model.Page == i)
+                    {
+                        <li>
+                            <a class="pagination-item current-page-index">@(i)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="pagination-item shadow"
+                               asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@i" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">@(i)</a>
+                        </li>
+                    }
+                }
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1)" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@Model.LastPage" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     }
-
-    .card-footer {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        background-color: white;
-        border-top: .5px solid rgba(0, 0, 0, .125);
-        padding-bottom: 1rem;
+    else
+    {
+        <div class="row">
+            <p class="py-0 text-center">Tìm thấy @Model.TotalResult kết quả cho <span style="color: #4F6083">"@Model.Search"</span> ở @Model.Category</p>
+            <hr style="width: 50%; margin-left: 25%">
+        </div>
+        <div class="row">
+            @foreach (var service in data)
+            {
+                <div class="col-md-3 col-sm-6 col-xl-4 mb-3" style="height: 15rem">
+                    <div class="card h-100 shadow" style="background-image: url('@(service.Images.Count == 0 ? "/images/HolaGuide_avt.png" : service.Images[0].Path)');
+                                                  position: relative; background-position: center; background-size: cover">
+                        <div class="card-info">
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <a asp-page="/Service/Detail" asp-route-serviceId="@service.Id"><h6 class="card-title">@service.Name</h6></a>
+                                <p class="card-distance">@(service.Distance < 1 ? $"{Math.Round(service.Distance * 1000)}m" : $"{service.Distance.ToString("F1")}km")</p>
+                            </div>
+                            <p class="card-subtitle">@service.Location.Description</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row d-flex flex-row justify-content-center align-items-center">
+            <ul class="pagination-area">
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="1" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == 1 ? 1 : Model.Page - 1)" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
+                @for (int i = (Model.Page == 1 ? 1 : Model.Page - 1); i <= (Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1); i++)
+                {
+                    if (Model.Page == i)
+                    {
+                        <li>
+                            <a class="pagination-item current-page-index">@(i)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="pagination-item shadow"
+                               asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@i" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">@(i)</a>
+                        </li>
+                    }
+                }
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@(Model.Page == Model.LastPage ? Model.LastPage : Model.Page + 1)" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pagination-item shadow"
+                       asp-page="/Home/UserHome" asp-route-query="@Model.Search" asp-route-category="@Model.Category" asp-route-filter="@Model.Filter" asp-route-pagenumber="@Model.LastPage" asp-route-latitude="@Model.Latitude" asp-route-longitude="@Model.Longitude">
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     }
-
-    .card-body {
-        padding-bottom: 0;
-    }
-
-    i {
-        font-size: 1.25rem
-    }
-
-    .save-button {
-        padding: 0 0.25rem;
-        font-size: .8rem;
-    }
-
-    form {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .service-title:hover {
-        text-decoration: underline;
-        color: black;
-    }
-</style>
+}

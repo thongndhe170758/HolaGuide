@@ -2,7 +2,7 @@
     position: absolute;
     bottom: .5rem;
     left: 0;
-    height: 30%;
+    height: 40%;
     width: 100%;
     background-color: rgba(0,0,0,0.4);
     padding: 1rem;
@@ -16,6 +16,11 @@
         text-decoration: underline;
         color: white;
     }
+
+.card-distance {
+    color: lightgreen;
+    font-weight: bold;
+}
 
 .card-subtitle {
     color: #dddddd;
