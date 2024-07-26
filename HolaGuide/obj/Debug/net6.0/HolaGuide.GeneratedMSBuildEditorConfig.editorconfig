@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\ADMIN\Downloads\HolaGuide\HolaGuide
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Admin/Course.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQ291cnNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ADMIN/Downloads/HolaGuide/HolaGuide/Pages/Advertisment/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWR2ZXJ0aXNtZW50XFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

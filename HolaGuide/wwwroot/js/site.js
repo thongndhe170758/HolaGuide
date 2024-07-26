@@ -1,4 +1,5 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿
+document.addEventListener("DOMContentLoaded", function () {
     // Get the height of the navbar
     var navbarHeight = document.getElementById("myNavbar").offsetHeight;
 

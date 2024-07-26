@@ -16,6 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/071e3e204d.js" crossorigin="anonymous"></script>
+    <script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/site.js"></script>
 </head>
 <body>
@@ -33,37 +34,75 @@
                     <div class="col-auto px-2">
                         <div><a asp-area="" asp-page="@((!User.Identity.IsAuthenticated || User.Claims.First(c => c.Type == "Role").Value.Equals("user")) ? "/Home/UserHome" : "/Home/AdminHome")">Trang chủ</a></div>
                     </div>
-                    <div class="col-auto px-2">
-                        <div><a asp-area="" asp-page="/General/AboutUs">Giới thiệu</a></div>
-                    </div>
-                    <div class="col-auto px-2">
-                        <div class="dropdown">
-                            <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dịch vụ
-                            </button>
-                            <ul class="dropdown-menu shadow">
-                                <li><a class="dropdown-item" href="#">Dịch vụ của tôi</a></li>
-                                <li><a class="dropdown-item" asp-page="/Subscription/Register">Đăng ký gói thành viên</a></li>
-                                <li><a class="dropdown-item" href="#">Đăng ký quảng cáo</a></li>
-                            </ul>
-                        </div>
-                    </div>
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
-                        <div class="col-auto">
-                            <div class="dropdown">
-                                <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @User.Claims.FirstOrDefault(c => c.Type == "Code")?.Value
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
-                                    <li><a class="dropdown-item" asp-page="/Authentication/Logout">Đăng Xuất</a></li>
-                                </ul>
+                        @if (User.Claims.First(c => c.Type == "Role").Value.Equals("user"))
+                        {
+                            <div class="col-auto px-2">
+                                <div><a asp-area="" asp-page="/General/AboutUs">Giới thiệu</a></div>
                             </div>
-                        </div>
+                            <div class="col-auto px-2">
+                                <div class="dropdown">
+                                    <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dịch vụ
+                                    </button>
+                                    <ul class="dropdown-menu shadow">
+                                        <li><a class="dropdown-item" href="#">Dịch vụ của tôi</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Subscription/Register">Đăng ký gói thành viên</a></li>
+                                        <li><a class="dropdown-item" href="#">Đăng ký quảng cáo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="dropdown">
+                                    <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @User.Claims.FirstOrDefault(c => c.Type == "Code")?.Value
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Authentication/Logout">Đăng Xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-auto px-2">
+                                <div><a asp-area="" asp-page="/Admin/Course">Quản lý dịch vụ</a></div>
+                            </div>
+                            <div class="col-auto px-2">
+                                <div><a asp-area="" asp-page="/General/AboutUs">Quản lý tài khoản</a></div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="dropdown">
+                                    <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Admin
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Hồ sơ của tôi</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Authentication/Logout">Đăng Xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
                     }
                     else
                     {
+                        <div class="col-auto px-2">
+                            <div><a asp-area="" asp-page="/General/AboutUs">Giới thiệu</a></div>
+                        </div>
+                        <div class="col-auto px-2">
+                            <div class="dropdown">
+                                <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dịch vụ
+                                </button>
+                                <ul class="dropdown-menu shadow">
+                                    <li><a class="dropdown-item" href="#">Dịch vụ của tôi</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Subscription/Register">Đăng ký gói thành viên</a></li>
+                                    <li><a class="dropdown-item" href="#">Đăng ký quảng cáo</a></li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="col-auto px-2">
                             <a asp-page="/Authentication/Login">Đăng Nhập</a>
                         </div>

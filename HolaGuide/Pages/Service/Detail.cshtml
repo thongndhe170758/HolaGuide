@@ -65,16 +65,16 @@
                                         <button class="btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i style="font-size: 1.25rem" class="fa-solid fa-ellipsis-vertical"></i>
                                         </button>
-                                        
+
                                         <ul class="dropdown-menu shadow">
                                             <form class="myfeedback-form" asp-page="/Service/Detail">
-                                            <input type="hidden" name="feedbackId" value="@Model.MyFeedback.Id">
+                                                <input type="hidden" name="feedbackId" value="@Model.MyFeedback.Id">
                                                 <input type="hidden" name="serviceId" value="@Model.Service.Id">
                                             <li><button type="submit" asp-page-handler="RemoveFeedback" class="dropdown-item">Xóa bình luận</button></li>
                                             <li><a class="dropdown-item" asp-page="/Subscription/Register">Chỉnh sửa bình luận</a></li>
                                             </form>
                                         </ul>
-                                        
+
                                     </div>
 
                                 </div>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        if(Model.MyFeedback == null)
+                        if (Model.MyFeedback == null)
                         {
                             <script>
                                 $('#feedback-post-form').show();
@@ -136,32 +136,22 @@
             <div class="col-4 px-4" style="padding-top: 2rem">
                 <div class="w-100 p-3 shadow map-wrapper">
                     <h4>Vị trí chi tiết</h4>
-                    @if (!User.Identity.IsAuthenticated || User.Claims.First(c => c.Type == "IsSubscript").Value.Equals("False"))
-                    {
-                        <div class="map-disabled">
-                            <p class="text-center">Bạn cần đăng ký thành vên để xem vị trí chi tiết</p>
-                            <a class="text-center" asp-page="/Subscription/Register">Đăng ký thành viên</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div id="map"></div>
-                        <span class="mt-4" style="font-size: .8rem">@Model.Service.Location?.Description</span>
+                    <div id="map"></div>
+                    <span class="mt-4" style="font-size: .8rem">@Model.Service.Location?.Description</span>
 
-                        <script>
-                            var longtitude = @Model.Service.Location?.Longtitude;
-                            var latitude = @Model.Service.Location?.Latitude;
+                    <script>
+                        var longtitude = @Model.Service.Location?.Longtitude;
+                        var latitude = @Model.Service.Location?.Latitude;
 
-                            var map = L.map('map').setView([latitude, longtitude], 10);
+                        var map = L.map('map').setView([latitude, longtitude], 10);
 
-                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                attribution: '&copy; HolaGuideMap contributors'
-                            }).addTo(map);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; HolaGuideMap contributors'
+                        }).addTo(map);
 
-                            L.marker([latitude, longtitude]).addTo(map)
-                                .openPopup();
-                        </script>
-                    }
+                        L.marker([latitude, longtitude]).addTo(map)
+                            .openPopup();
+                    </script>
                 </div>
             </div>
         </div><br />
@@ -212,12 +202,12 @@
                         "<i style='font-size: 1.25rem' class='fa-solid fa-ellipsis-vertical'></i>" +
                         "</button>" +
                         "<ul class='dropdown-menu shadow'>" +
-                        "<form class='myfeedback-form' asp-page='/Service/Detail'>" + 
-                            "<input type='hidden' name = 'feedbackId' value = '"+response.data.id+"'>" + 
-                                "<input type='hidden' name='serviceId' value = '"+@(Model.Service.Id)+"'>" +
-                                    "<li><button type='submit' asp-page-handler='RemoveFeedback' class='dropdown-item'> Xóa bình luận </button></li>" + 
-                                        "<li><a class='dropdown-item' asp-page='/Subscription/Register'> Chỉnh sửa bình luận </a></li>" + 
-                                            "</form>" +
+                        "<form class='myfeedback-form' asp-page='/Service/Detail'>" +
+                        "<input type='hidden' name = 'feedbackId' value = '" + response.data.id + "'>" +
+                        "<input type='hidden' name='serviceId' value = '" + @(Model.Service.Id)+"'>" +
+                        "<li><button type='submit' asp-page-handler='RemoveFeedback' class='dropdown-item'> Xóa bình luận </button></li>" +
+                        "<li><a class='dropdown-item' asp-page='/Subscription/Register'> Chỉnh sửa bình luận </a></li>" +
+                        "</form>" +
                         "</ul>" +
                         "</div>" +
                         "</div>" +

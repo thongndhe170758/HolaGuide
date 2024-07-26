@@ -93,11 +93,6 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
-        }
       }
     },
     "C:\\Users\\ADMIN\\Downloads\\HolaGuide\\Models\\Models.csproj": {
@@ -158,11 +153,6 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
         }
       }
     }

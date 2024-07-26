@@ -1,3 +1,4 @@
+using HolaGuide.Hubs;
 using Infrastructure.SQLServer;
 using Microsoft.EntityFrameworkCore;
 using Services.DBRepository.Implements;
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 builder.Services.AddMvc().AddRazorPagesOptions(option => option.Conventions.AddPageRoute("/Home/UserHome",""));
 
 builder.Services.AddDbContext<HolaGuide_TestContext>(option =>
@@ -69,7 +71,11 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapHub<ServiceHub>("/serviceHub");
+});
 
 app.Run();
 
